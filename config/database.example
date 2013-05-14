@@ -1,0 +1,18 @@
+common: &common
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: peterzd
+  password:
+
+development:
+  <<: *common
+  database: hr_tracker_development
+
+test:
+  <<: *common
+  database: hr_tracker_test
+
+production:
+  <<: *common
+  database: hr_tracker_production
