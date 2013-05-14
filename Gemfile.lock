@@ -145,9 +145,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cancan
+  cancan (~> 1.6.9)
   coffee-rails (~> 3.2.1)
-  devise
+  devise (~> 2.2.3)
   factory_girl_rails (~> 4.2.0)
   faker (~> 1.1.2)
   haml-rails (~> 0.4)
