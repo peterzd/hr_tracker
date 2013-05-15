@@ -2,15 +2,15 @@
 
 %table
   %tr
-    %th Name
+    -# %th Name
     %th Nickname
-    %th Birthdate
+    -# %th Birthdate
     %th Originate start date
     %th Originate end date
     %th Current employee
-    %th Years prior exp
-    %th University
-    %th Degree
+    -# %th Years prior exp
+    -# %th University
+    -# %th Degree
     %th Is system admin
     %th Is admin
     %th
@@ -19,15 +19,15 @@
 
   - @employees.each do |employee|
     %tr
-      %td= employee.name
+      -# %td= employee.name
       %td= employee.nickname
-      %td= employee.birthdate
+      -# %td= employee.birthdate
       %td= employee.originate_start_date
       %td= employee.originate_end_date
       %td= employee.current_employee
-      %td= employee.years_prior_exp
-      %td= employee.university
-      %td= employee.degree
+      -# %td= employee.years_prior_exp
+      -# %td= employee.university
+      -# %td= employee.degree
       %td= employee.is_system_admin
       %td= employee.is_admin
       %td= link_to 'Show', employee
