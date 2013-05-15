@@ -11,6 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20130515063221) do
+
+  create_table "employees", :force => true do |t|
+    t.string   "name"
+    t.string   "nickname"
+    t.date     "birthdate"
+    t.date     "originate_start_date"
+    t.date     "originate_end_date"
+    t.boolean  "current_employee"
+    t.integer  "years_prior_exp"
+    t.string   "university"
+    t.string   "degree"
+    t.boolean  "is_system_admin"
+    t.boolean  "is_admin"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
 
 end
