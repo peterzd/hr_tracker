@@ -2,7 +2,8 @@
 
 %table
   %tr
-    -# %th Name
+    %th Name
+    %th id
     %th Nickname
     -# %th Birthdate
     %th Originate start date
@@ -19,7 +20,8 @@
 
   - @employees.each do |employee|
     %tr
-      -# %td= employee.name
+      %td= employee.name
+      %td= employee.id
       %td= employee.nickname
       -# %td= employee.birthdate
       %td= employee.originate_start_date

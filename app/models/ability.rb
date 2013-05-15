@@ -1,12 +1,11 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
-    employee = Employee.new
-    if employee.is_system_admin? or employee.is_admin?
+  def initialize(employee)
+    employee ||= Employee.new
+    if (employee.is_system_admin? || employee.is_admin?)
       can :manage, :all
     elsif employee.persisted?
-      # can see him self
       can :manage, Employee do |managed_user|
         managed_user.id == employee.id
       end

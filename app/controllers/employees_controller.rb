@@ -1,8 +1,8 @@
 class EmployeesController < ApplicationController
-  # GET /employees
-  # GET /employees.json
+  load_and_authorize_resource
+
   def index
-    @employees = Employee.all
+    @employees = Employee.order :id
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,8 +10,6 @@ class EmployeesController < ApplicationController
     end
   end
 
-  # GET /employees/1
-  # GET /employees/1.json
   def show
     @employee = Employee.find(params[:id])
 
