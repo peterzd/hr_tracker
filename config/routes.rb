@@ -7,6 +7,8 @@ HrTracker::Application.routes.draw do
 
   root :to => 'home#index'
 
+  devise_for :employee
   resources :employees
-  devise_for :employees
+
+
 end
