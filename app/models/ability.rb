@@ -9,6 +9,9 @@ class Ability
       can :manage, Employee do |managed_user|
         managed_user.id == employee.id
       end
+      can :read, Contract do |managed_contract|
+        managed_contract.employee.id == employee.id
+      end
     end
 
     # Define abilities for the passed in user here. For example:

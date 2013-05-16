@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   def after_sign_in_path_for(user)
-    employees_path
+    home_dashboard_path
   end
 
   # set cancan default current_user to current_employee

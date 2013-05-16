@@ -1,5 +1,8 @@
 HrTracker::Application.routes.draw do
 
+  resources :contracts
+
+
   namespace 'home' do
     get "dashboard"
     get "index"
