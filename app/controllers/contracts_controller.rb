@@ -25,6 +25,7 @@ class ContractsController < ApplicationController
   # GET /contracts/new.json
   def new
     @contract = Contract.new
+    @employees = Employee.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,24 +33,27 @@ class ContractsController < ApplicationController
     end
   end
 
-  # GET /contracts/1/edit
   def edit
     @contract = Contract.find(params[:id])
   end
 
-  # POST /contracts
-  # POST /contracts.json
   def create
-    @contract = Contract.new(params[:contract])
+    contract = params[:contract]
 
-    respond_to do |format|
-      if @contract.save
-        format.html { redirect_to @contract, notice: 'Contract was successfully created.' }
-        format.json { render json: @contract, status: :created, location: @contract }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @contract.errors, status: :unprocessable_entity }
-      end
+    employee_id = contract[:employee_id].to_i
+    employee = Employee.where(id: employee_id).first
+
+    start_date = Date.new contract["start_date(1i)"].to_i, contract["start_date(2i)"].to_i, contract["start_date(3i)"].to_i
+    end_date = Date.new contract["end_date(1i)"].to_i, contract["end_date(2i)"].to_i, contract["end_date(3i)"].to_i
+
+    salary = contract[:salary].to_f
+
+    @contract = Contract.new(start_date: start_date, end_date: end_date, salary: salary, employee: employee)
+
+    if @contract.save
+      redirect_to @contract, notice: 'Contract was successfully created.'
+    else
+      render action: "new"
     end
   end
 
