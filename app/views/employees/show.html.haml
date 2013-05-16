@@ -1,0 +1,39 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @employee.name
+%p
+  %b Nickname:
+  = @employee.nickname
+%p
+  %b Birthdate:
+  = @employee.birthdate
+%p
+  %b Originate start date:
+  = @employee.originate_start_date
+%p
+  %b Originate end date:
+  = @employee.originate_end_date
+%p
+  %b Current employee:
+  = @employee.current_employee
+%p
+  %b Years prior exp:
+  = @employee.years_prior_exp
+%p
+  %b University:
+  = @employee.university
+%p
+  %b Degree:
+  = @employee.degree
+%p
+  %b Is system admin:
+  = @employee.is_system_admin
+%p
+  %b Is admin:
+  = @employee.is_admin
+
+= link_to 'Edit', edit_employee_path(@employee)
+\|
+= link_to 'Back', employees_path

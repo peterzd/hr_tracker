@@ -1,0 +1,9 @@
+%h3
+  - if employee_signed_in?
+    = "#{ current_employee.name }, id: #{ current_employee.id }" # + "#{ 'admin' if current_employee.is_system_admin? }"
+= link_to 'Sign in', new_employee_session_path
+%br
+= link_to 'Sign up', new_employee_registration_path
+%br
+= link_to 'Log out', destroy_employee_session_path, method: :delete
+
