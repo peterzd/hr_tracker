@@ -17,17 +17,10 @@ class ContractsController < ApplicationController
 
   def new
     @contract = Contract.new
-    @employees = Employee.all
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @contract }
-    end
   end
 
   def edit
     @contract = Contract.find(params[:id])
-    @employees = Employee.all
   end
 
   def create

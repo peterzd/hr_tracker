@@ -17,6 +17,6 @@
     = f.text_field :salary
   .field
     = f.label :employee
-    = collection_select :contract, :employee_id, @employees, :id, :email
+    = collection_select :contract, :employee_id, Employee.all, :id, :email
   .actions
     = f.submit 'Save'
