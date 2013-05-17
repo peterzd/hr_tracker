@@ -1,7 +1,10 @@
 class HomeController < ApplicationController
-  def dashboard
+  def index
+    if employee_signed_in?
+      redirect_to home_dashboard_path
+    end
   end
 
-  def index
+  def dashboard
   end
 end
