@@ -11,6 +11,8 @@ class Employee < ActiveRecord::Base
 
   has_many :contracts
 
+  default_scope order :id
+
   def to_s
     [email, nickname].join " "
   end

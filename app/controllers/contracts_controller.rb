@@ -27,12 +27,11 @@ class ContractsController < ApplicationController
 
   def edit
     @contract = Contract.find(params[:id])
+    @employees = Employee.all
   end
 
   def create
-    contract = params[:contract]
-    @contract = construct_contract contract
-
+    @contract = Contract.new(constructed_contract params[:contract])
 
     if @contract.save
       redirect_to @contract, notice: 'Contract was successfully created.'
@@ -41,19 +40,13 @@ class ContractsController < ApplicationController
     end
   end
 
-  # PUT /contracts/1
-  # PUT /contracts/1.json
   def update
     @contract = Contract.find(params[:id])
 
-    respond_to do |format|
-      if @contract.update_attributes(params[:contract])
-        format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @contract.errors, status: :unprocessable_entity }
-      end
+    if @contract.update_attributes(constructed_contract params[:contract])
+      redirect_to @contract, notice: 'Contract was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 
@@ -68,13 +61,10 @@ class ContractsController < ApplicationController
   end
 
   private
-  def construct_contract constract
-    employee_id = constract[:employee_id].to_i
-    employee = Employee.where(id: employee_id).first
-    start_date = Date.new contract["start_date(1i)"].to_i, contract["start_date(2i)"].to_i, contract["start_date(3i)"].to_i
-    end_date = Date.new contract["end_date(1i)"].to_i, contract["end_date(2i)"].to_i, contract["end_date(3i)"].to_i
-    salary = contract[:salary].to_f
-
-    contract = Contract.new(start_date: start_date, end_date: end_date, salary: salary, employee: employee)
+  def constructed_contract contract_params
+    employee_id = contract_params.delete(:employee_id).to_i
+    employee = Employee.find employee_id
+    contract_params[:employee] = employee
+    contract_params
   end
 end
