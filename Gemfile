@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org/'
 
 gem 'rails', '3.2.13'
 
@@ -7,6 +7,7 @@ gem 'thin', '~> 1.5.1'
 gem 'haml-rails', '~> 0.4'
 gem 'devise', '~> 2.2.3'
 gem 'cancan', '~> 1.6.9'
+gem 'timecop'
 
 
 group :assets do
