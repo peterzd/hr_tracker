@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe Employee do
-  pending "add some examples to (or delete) #{__FILE__}"
+  helper_objects
+
+  it 'sameer is the system_admin' do
+    sameer.is_system_admin.should be_true
+  end
 end

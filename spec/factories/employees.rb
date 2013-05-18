@@ -2,12 +2,14 @@
 
 FactoryGirl.define do
   factory :employee do
-    name "MyString"
-    nickname "MyString"
+    name { Faker::Internet.user_name }
+    email { Faker::Internet.email }
+    password "11111111"
+    nickname { Faker::Name.name }
     birthdate "2013-05-15"
     originate_start_date "2013-05-15"
     originate_end_date "2013-05-15"
-    current_employee false
+    current_employee true
     years_prior_exp 1
     university "MyString"
     degree "MyString"
