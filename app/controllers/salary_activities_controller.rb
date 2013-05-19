@@ -19,7 +19,6 @@ class SalaryActivitiesController < ApplicationController
 
   def new
     @contract = Contract.where(id: params[:contract_id]).first
-    # @salary_activity = SalaryActivity.new
     @salary_activity = @contract.salary_activities.build
   end
 
@@ -28,23 +27,19 @@ class SalaryActivitiesController < ApplicationController
   end
 
   def create
-    contract = Contract.where(id: params[:contract_id]).first
-    params[:salary_activity][:contract] = contract
+    @contract = Contract.where(id: params[:contract_id]).first
+    params[:salary_activity][:contract] = @contract
     @salary_activity = SalaryActivity.new(params[:salary_activity])
 
     respond_to do |format|
       if @salary_activity.save
-        format.html { redirect_to @salary_activity, notice: 'Salary activity was successfully created.' }
-        format.json { render json: @salary_activity, status: :created, location: @salary_activity }
+        redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully created.'
       else
-        format.html { render action: "new" }
-        format.json { render json: @salary_activity.errors, status: :unprocessable_entity }
+        render action: "new"
       end
     end
   end
 
-  # PUT /salary_activities/1
-  # PUT /salary_activities/1.json
   def update
     @salary_activity = SalaryActivity.find(params[:id])
 
