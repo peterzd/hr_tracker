@@ -6,4 +6,8 @@ class Contract < ActiveRecord::Base
 
   default_scope where('employee_id is not null')
   scope :current_employee_contracts, lambda { |employee| where(employee_id: employee.id)}
+
+  def to_s
+    "#{employee.nickname}'s contract"
+  end
 end

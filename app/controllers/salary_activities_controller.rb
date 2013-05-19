@@ -1,6 +1,4 @@
 class SalaryActivitiesController < ApplicationController
-  # GET /salary_activities
-  # GET /salary_activities.json
   def index
     @salary_activities = SalaryActivity.all
 
@@ -10,8 +8,6 @@ class SalaryActivitiesController < ApplicationController
     end
   end
 
-  # GET /salary_activities/1
-  # GET /salary_activities/1.json
   def show
     @salary_activity = SalaryActivity.find(params[:id])
 
@@ -21,25 +17,19 @@ class SalaryActivitiesController < ApplicationController
     end
   end
 
-  # GET /salary_activities/new
-  # GET /salary_activities/new.json
   def new
-    @salary_activity = SalaryActivity.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @salary_activity }
-    end
+    @contract = Contract.where(id: params[:contract_id]).first
+    # @salary_activity = SalaryActivity.new
+    @salary_activity = @contract.salary_activities.build
   end
 
-  # GET /salary_activities/1/edit
   def edit
     @salary_activity = SalaryActivity.find(params[:id])
   end
 
-  # POST /salary_activities
-  # POST /salary_activities.json
   def create
+    contract = Contract.where(id: params[:contract_id]).first
+    params[:salary_activity][:contract] = contract
     @salary_activity = SalaryActivity.new(params[:salary_activity])
 
     respond_to do |format|
