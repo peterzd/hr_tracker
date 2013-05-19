@@ -1,0 +1,27 @@
+%h1 Listing salary_activities
+
+%table
+  %tr
+    %th Previous salary
+    %th Current salary
+    %th Contract
+    %th Discusstion date
+    %th Effective date
+    %th
+    %th
+    %th
+
+  - @salary_activities.each do |salary_activity|
+    %tr
+      %td= salary_activity.previous_salary
+      %td= salary_activity.current_salary
+      %td= salary_activity.contract
+      %td= salary_activity.discusstion_date
+      %td= salary_activity.effective_date
+      %td= link_to 'Show', salary_activity
+      %td= link_to 'Edit', edit_salary_activity_path(salary_activity)
+      %td= link_to 'Destroy', salary_activity, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Salary activity', new_salary_activity_path
