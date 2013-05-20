@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', @salary_activity
+= link_to 'Show', contract_salary_activities_path(@contract, @salary_activity)
 \|
-= link_to 'Back', salary_activities_path
+= link_to 'Back', contract_salary_activities_path(@contract, @salary_activity)

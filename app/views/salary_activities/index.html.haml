@@ -18,10 +18,10 @@
       %td= salary_activity.contract
       %td= salary_activity.discusstion_date
       %td= salary_activity.effective_date
-      %td= link_to 'Show', salary_activity
-      %td= link_to 'Edit', edit_salary_activity_path(salary_activity)
-      %td= link_to 'Destroy', salary_activity, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Show', contract_salary_activity_path(@contract, salary_activity)
+      %td= link_to 'Edit', edit_contract_salary_activity_path(@contract, salary_activity)
+      %td= link_to 'Destroy', contract_salary_activity_path(@contract, salary_activity), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Salary activity', new_contract_salary_activity_path
+= link_to 'New Salary activity', new_contract_salary_activity_path(@contract)

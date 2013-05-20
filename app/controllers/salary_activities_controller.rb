@@ -1,20 +1,13 @@
 class SalaryActivitiesController < ApplicationController
-  def index
-    @salary_activities = SalaryActivity.all
+  authorize_resource
+  load_resource :contract, except: [:create, :update]
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @salary_activities }
-    end
+  def index
+    @salary_activities = @contract.salary_activities
   end
 
   def show
     @salary_activity = SalaryActivity.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @salary_activity }
-    end
   end
 
   def new
@@ -23,6 +16,7 @@ class SalaryActivitiesController < ApplicationController
   end
 
   def edit
+    @contract = Contract.where(id: params[:contract_id]).first
     @salary_activity = SalaryActivity.find(params[:id])
   end
 
@@ -31,38 +25,31 @@ class SalaryActivitiesController < ApplicationController
     params[:salary_activity][:contract] = @contract
     @salary_activity = SalaryActivity.new(params[:salary_activity])
 
-    respond_to do |format|
-      if @salary_activity.save
-        redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully created.'
-      else
-        render action: "new"
-      end
+    if @salary_activity.save
+      redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully created.'
+    else
+      render action: "new"
     end
   end
 
   def update
+    @contract = Contract.where(id: params[:contract_id]).first
     @salary_activity = SalaryActivity.find(params[:id])
 
-    respond_to do |format|
-      if @salary_activity.update_attributes(params[:salary_activity])
-        format.html { redirect_to @salary_activity, notice: 'Salary activity was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @salary_activity.errors, status: :unprocessable_entity }
-      end
+    params[:salary_activity][:contract] = @contract
+    logger.info "the new params is : #{params[:salary_activity]}"
+
+    if @salary_activity.update_attributes(params[:salary_activity])
+      redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 
-  # DELETE /salary_activities/1
-  # DELETE /salary_activities/1.json
   def destroy
     @salary_activity = SalaryActivity.find(params[:id])
     @salary_activity.destroy
 
-    respond_to do |format|
-      format.html { redirect_to salary_activities_url }
-      format.json { head :no_content }
-    end
+    redirect_to contract_salary_activities_path(@contract)
   end
 end
