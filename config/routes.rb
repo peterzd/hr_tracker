@@ -1,7 +1,9 @@
 HrTracker::Application.routes.draw do
 
   resources :contracts do
-    resources :salary_activities
+    resources :salary_activities do
+      resources :discussion
+    end
   end
 
   namespace 'home' do
