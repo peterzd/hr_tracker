@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Previous salary:
+  = @salary_activity.previous_salary
+%p
+  %b Current salary:
+  = @salary_activity.current_salary
+%p
+  %b Contract:
+  = @salary_activity.contract
+%p
+  %b Discusstion date:
+  = @salary_activity.discusstion_date
+%p
+  %b Effective date:
+  = @salary_activity.effective_date
+
+= link_to 'Edit', edit_contract_salary_activity_path(@contract, @salary_activity)
+\|
+= link_to 'Back', contract_salary_activities_path

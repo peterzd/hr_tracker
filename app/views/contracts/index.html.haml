@@ -17,9 +17,10 @@
       %td= contract.salary
       %td= contract.employee
       %td= link_to 'Show', contract
-      %td= link_to 'Edit', edit_contract_path(contract)
-      %td= link_to 'Destroy', contract, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= (link_to 'Edit', edit_contract_path(contract)) if can? :edit, contract
+      %td= (link_to 'Destroy', contract, :method => :delete, :data => { :confirm => 'Are you sure?' }) if can? :delete, contract
+      %td= link_to 'Salary Activities', contract_salary_activities_path(contract)
 
 %br
 
-= link_to 'New Contract', new_contract_path
+= (link_to 'New Contract', new_contract_path) if can? :new, Contract
