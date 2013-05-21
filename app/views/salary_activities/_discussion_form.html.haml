@@ -1,8 +1,8 @@
 .field
   = label_tag :content
-  = text_area_tag :content
+  = text_area_tag "discussion[content]", @discussion.content
 .field
-  = radio_button_tag(:is_visible, true)
+  = radio_button_tag("discussion[is_visible]", true, @discussion.is_visible?)
   = label_tag :visible
-  = radio_button_tag(:is_visible, false, checked: true)
+  = radio_button_tag("discussion[is_visible]", false, true && !@discussion.is_visible?)
   = label_tag :unvisible
