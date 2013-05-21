@@ -14,7 +14,7 @@ class SalaryActivitiesController < ApplicationController
     @contract = Contract.where(id: params[:contract_id]).first
     last_activity = SalaryActivity.last
     previous_salary = last_activity.current_salary unless last_activity.nil?
-    @salary_activity = @contract.salary_activities.create(previous_salary: previous_salary)
+    @salary_activity = @contract.salary_activities.new(previous_salary: previous_salary)
   end
 
   def edit
@@ -29,9 +29,12 @@ class SalaryActivitiesController < ApplicationController
     current_salary = params[:salary_activity][:current_salary].to_i
     current_salary = params[:salary_activity][:previous_salary].to_i if (current_salary.nil? or current_salary == 0)
     params[:salary_activity][:current_salary] = current_salary
+    @salary_activity = SalaryActivity.new(params[:salary_activity])
 
-    if @salary_activity.update_attributes(params[:salary_activity])
+    if @salary_activity.save
       @contract.update_attribute(:salary, @salary_activity.current_salary)
+      #TODO create the discussion for the salary_activity
+
       redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully created.'
     else
       render action: "new"

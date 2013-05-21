@@ -1,0 +1,8 @@
+.field
+  = label_tag :content
+  = text_area_tag :content
+.field
+  = radio_button_tag(:is_visible, true)
+  = label_tag :visible
+  = radio_button_tag(:is_visible, false, checked: true)
+  = label_tag :unvisible
