@@ -1,0 +1,11 @@
+= form_for [@contract, @salary_activity, @discussion], url: { action: "create_or_update" } do |f|
+  .field
+    = f.label :content
+    = f.text_area :content
+  .field
+    = f.radio_button(:is_visible, true)
+    = f.label :visible
+    = f.radio_button(:is_visible, false, checked: true)
+    = f.label :unvisible
+  .field
+    = f.submit 'save'

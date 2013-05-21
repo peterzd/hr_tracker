@@ -2,7 +2,8 @@ HrTracker::Application.routes.draw do
 
   resources :contracts do
     resources :salary_activities do
-      resources :discussion
+      get 'discussions' => 'discussions#new_or_edit'
+      match 'discussions' => 'discussions#create_or_update', via: [:post, :put]
     end
   end
 
