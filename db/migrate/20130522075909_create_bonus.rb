@@ -1,6 +1,6 @@
 class CreateBonus < ActiveRecord::Migration
   def change
-    create_table :bonus do |t|
+    create_table :bonuses do |t|
       t.float :amount
       t.date :distribution_date
       t.text :comment
@@ -8,6 +8,6 @@ class CreateBonus < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :bonus, :employee_id
+    add_index :bonuses, :employee_id
   end
 end

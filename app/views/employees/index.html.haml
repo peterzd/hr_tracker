@@ -35,6 +35,7 @@
       %td= link_to 'Show', employee
       %td= link_to 'Edit', edit_employee_path(employee)
       %td= link_to 'Destroy', employee, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Bonuses', bonuses_path(employee.nickname)
 
 %br
 

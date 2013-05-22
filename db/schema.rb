@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130522075909) do
 
-  create_table "bonus", :force => true do |t|
+  create_table "bonuses", :force => true do |t|
     t.float    "amount"
     t.date     "distribution_date"
     t.text     "comment"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20130522075909) do
     t.datetime "updated_at",        :null => false
   end
 
-  add_index "bonus", ["employee_id"], :name => "index_bonus_on_employee_id"
+  add_index "bonuses", ["employee_id"], :name => "index_bonuses_on_employee_id"
 
   create_table "contracts", :force => true do |t|
     t.date     "start_date"

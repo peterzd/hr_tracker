@@ -1,0 +1,21 @@
+%h1 Bonuses#index
+%p Find me in app/views/bonuses/index.html.haml
+%h2
+  The bonuses of #{@employee.nickname}
+%table
+  %tr
+    %th Bonus Amount
+    %th Distribution Date
+    %th Comment
+
+  - @bonuses.each do |bonus|
+    %tr
+      %td= bonus.amount
+      %td= bonus.distribution_date
+      %td= bonus.comment
+      %td= link_to "Show"
+      %td= link_to "Edit"
+      %td= link_to "Destroy"
+
+= link_to "New Bonus for #{@employee.nickname}", new_bonus
+
