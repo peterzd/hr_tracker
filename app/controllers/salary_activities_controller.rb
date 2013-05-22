@@ -14,12 +14,14 @@ class SalaryActivitiesController < ApplicationController
     @contract = Contract.where(id: params[:contract_id]).first
     last_activity = SalaryActivity.last
     previous_salary = last_activity.current_salary unless last_activity.nil?
-    @salary_activity = @contract.salary_activities.build(previous_salary: previous_salary)
+    @salary_activity = @contract.salary_activities.new(previous_salary: previous_salary)
+    @discussion = Discussion.new
   end
 
   def edit
     @contract = Contract.where(id: params[:contract_id]).first
     @salary_activity = SalaryActivity.find(params[:id])
+    @discussion = @salary_activity.discussion || @salary_activity.build_discussion
   end
 
   def create
@@ -29,14 +31,18 @@ class SalaryActivitiesController < ApplicationController
     current_salary = params[:salary_activity][:current_salary].to_i
     current_salary = params[:salary_activity][:previous_salary].to_i if (current_salary.nil? or current_salary == 0)
     params[:salary_activity][:current_salary] = current_salary
-
     @salary_activity = SalaryActivity.new(params[:salary_activity])
 
     if @salary_activity.save
       @contract.update_attribute(:salary, @salary_activity.current_salary)
-      redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully created.'
+      @discussion = @salary_activity.build_discussion(params[:discussion])
+      if @discussion.save
+        redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully created.'
+      else
+        render action: "new"
+      end
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 
@@ -52,6 +58,7 @@ class SalaryActivitiesController < ApplicationController
 
     if @salary_activity.update_attributes(params[:salary_activity])
 
+      @discussion = @salary_activity.discussion.update_attributes(params[:discussion])
       @contract.update_attribute(:salary, @salary_activity.current_salary)
       redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully updated.'
     else

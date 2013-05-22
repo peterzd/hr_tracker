@@ -21,5 +21,10 @@
   .field
     = f.label :effective_date
     = f.date_select :effective_date
+  .field
+    = f.label :discussion_note
+    = render 'discussion_form'
+  -# .field
+  -#   = link_to "Discussion note", contract_salary_activity_discussions_path(@contract, @salary_activity)
   .actions
     = f.submit 'Save'
