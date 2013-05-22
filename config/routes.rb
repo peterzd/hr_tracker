@@ -17,5 +17,8 @@ HrTracker::Application.routes.draw do
   devise_for :employee
   resources :employees
 
+  scope ":employee" do
+    resources :bouns
+  end
 
 end
