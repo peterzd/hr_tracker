@@ -12,8 +12,10 @@
       %td= bonus.amount
       %td= bonus.distribution_date
       %td= bonus.comment
+
+      %td= link_to "Show", bonus_path(@employee.nickname, bonus)
       %td= link_to "Edit", edit_bonus_path(@employee.nickname, bonus)
-      %td= link_to 'Destroy', bonus, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Destroy', bonus_path(@employee.nickname, bonus), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 = link_to "New Bonus for #{@employee.nickname}", new_bonus_path(@employee.nickname)
 
