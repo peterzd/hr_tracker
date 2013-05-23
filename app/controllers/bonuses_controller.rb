@@ -35,8 +35,10 @@ class BonusesController < ApplicationController
   end
 
   def destroy
+    @bonus = Bonus.find params[:id]
+    @bonus.destroy
+
+    redirect_to bonuses_path
   end
 
-  def show
-  end
 end

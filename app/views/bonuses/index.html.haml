@@ -1,5 +1,4 @@
 %h1 Bonuses#index
-%p Find me in app/views/bonuses/index.html.haml
 %h2
   The bonuses of #{@employee.nickname}
 %table
@@ -13,9 +12,8 @@
       %td= bonus.amount
       %td= bonus.distribution_date
       %td= bonus.comment
-      %td= link_to "Show"
       %td= link_to "Edit", edit_bonus_path(@employee.nickname, bonus)
-      %td= link_to "Destroy"
+      %td= link_to 'Destroy', bonus, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 = link_to "New Bonus for #{@employee.nickname}", new_bonus_path(@employee.nickname)
 
