@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520094003) do
+ActiveRecord::Schema.define(:version => 20130522075909) do
+
+  create_table "bonuses", :force => true do |t|
+    t.float    "amount"
+    t.date     "distribution_date"
+    t.text     "comment"
+    t.integer  "employee_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "bonuses", ["employee_id"], :name => "index_bonuses_on_employee_id"
 
   create_table "contracts", :force => true do |t|
     t.date     "start_date"

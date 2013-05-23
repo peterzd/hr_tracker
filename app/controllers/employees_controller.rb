@@ -19,8 +19,6 @@ class EmployeesController < ApplicationController
     end
   end
 
-  # GET /employees/new
-  # GET /employees/new.json
   def new
     @employee = Employee.new
 
@@ -30,13 +28,10 @@ class EmployeesController < ApplicationController
     end
   end
 
-  # GET /employees/1/edit
   def edit
     @employee = Employee.find(params[:id])
   end
 
-  # POST /employees
-  # POST /employees.json
   def create
     @employee = Employee.new(params[:employee])
 
@@ -51,24 +46,16 @@ class EmployeesController < ApplicationController
     end
   end
 
-  # PUT /employees/1
-  # PUT /employees/1.json
   def update
     @employee = Employee.find(params[:id])
 
-    respond_to do |format|
-      if @employee.update_attributes(params[:employee])
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
-      end
+    if @employee.update_attributes(params[:employee])
+      redirect_to @employee, notice: 'Employee was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 
-  # DELETE /employees/1
-  # DELETE /employees/1.json
   def destroy
     @employee = Employee.find(params[:id])
     @employee.destroy
