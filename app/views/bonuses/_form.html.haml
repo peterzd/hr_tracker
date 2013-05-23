@@ -1,0 +1,13 @@
+= form_for @bonus, url: ( @action unless @action.nil? ) do |f|
+  .field
+    = f.label :amount
+    = f.text_field :amount
+  .field
+    = f.label :distribution_date
+    = f.date_select :distribution_date
+  .field
+    = f.label :comment
+    = f.text_area :comment
+  .field
+    = f.submit "Save"
+
