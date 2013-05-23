@@ -8,6 +8,7 @@ gem 'haml-rails', '~> 0.4'
 gem 'devise', '~> 2.2.3'
 gem 'cancan', '~> 1.6.9'
 gem 'timecop'
+gem 'twitter-bootstrap-rails'
 
 
 group :assets do
