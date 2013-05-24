@@ -1,0 +1,6 @@
+- if employee_signed_in?
+  %li= link_to "#{current_employee.nickname}", employee_path(current_employee)
+- else
+  %li= link_to 'Sign in', new_employee_session_path
+  %li= link_to 'Sign up', new_employee_registration_path
+%li= link_to 'Log out', destroy_employee_session_path, method: :delete
