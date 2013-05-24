@@ -3,11 +3,6 @@ class EmployeesController < ApplicationController
 
   def index
     @employees = Employee.order :id
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @employees }
-    end
   end
 
   def show
