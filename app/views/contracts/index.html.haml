@@ -7,12 +7,12 @@
     %th Salary
     %th Employee
     %th
-      %th
-        %th
+    %th
+    %th
 
-          - @contracts.each do |contract|
-            %tr
-              %td= contract.start_date
+  - @contracts.each do |contract|
+    %tr
+      %td= contract.start_date
       %td= contract.end_date
       %td= contract.salary
       %td= contract.employee

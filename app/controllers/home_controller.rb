@@ -8,6 +8,7 @@ class HomeController < ApplicationController
   end
 
   def dashboard
+    add_breadcrumb "home", :root_path
     @employees = Employee.order :id
   end
 end

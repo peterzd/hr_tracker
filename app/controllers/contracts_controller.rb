@@ -1,26 +1,31 @@
 class ContractsController < ApplicationController
   authorize_resource
 
+  add_breadcrumb 'home', :home_index_path
+
   def index
+    add_breadcrumb "contracts"
+
     @contracts = (can? :manage, Contract) ? (Contract.order :updated_at) : (Contract.current_employee_contracts current_employee)
 
   end
 
   def show
     @contract = Contract.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @contract }
-    end
+    add_breadcrumb "contracts", contracts_path
+    add_breadcrumb "#{@contract.id}"
   end
 
   def new
     @contract = Contract.new
+    add_breadcrumb "contracts", contracts_path
+    add_breadcrumb "new"
   end
 
   def edit
     @contract = Contract.find(params[:id])
+    add_breadcrumb "contracts", contracts_path
+    add_breadcrumb "#{@contract.id}"
   end
 
   def create

@@ -20,6 +20,7 @@ class EmployeesController < ApplicationController
   end
 
   def new
+    add_breadcrumb "new"
     @employee = Employee.new
 
     respond_to do |format|
