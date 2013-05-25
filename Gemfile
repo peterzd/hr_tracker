@@ -9,6 +9,7 @@ gem 'devise', '~> 2.2.3'
 gem 'cancan', '~> 1.6.9'
 gem 'timecop'
 gem 'twitter-bootstrap-rails'
+gem 'breadcrumbs_on_rails'
 
 
 group :assets do
