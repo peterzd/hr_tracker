@@ -1,13 +1,19 @@
-= form_for @bonus, url: ( @action unless @action.nil? ) do |f|
-  .field
-    = f.label :amount
-    = f.text_field :amount
-  .field
-    = f.label :distribution_date
-    = f.date_select :distribution_date
-  .field
-    = f.label :comment
-    = f.text_area :comment
-  .field
-    = f.submit "Save"
+= form_for @bonus, url: ( @action unless @action.nil? ), html: { class: 'form-horizontal' } do |f|
+  .control-group
+    = f.label :amount, class: 'control-label'
+    .controls
+      = f.text_field :amount
+  .control-group
+    = f.label :distribution_date, class: 'control-label'
+    .controls
+      = f.date_select :distribution_date
+  .control-group
+    = f.label :comment, class: 'control-label'
+    .controls
+      = f.text_area :comment
+  .control-group
+    .controls
+      = f.submit "Save", class: 'btn'
+      = link_to 'Back', bonuses_path, class: 'btn'
+
 
