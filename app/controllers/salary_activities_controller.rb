@@ -5,6 +5,7 @@ class SalaryActivitiesController < ApplicationController
   add_breadcrumb "home", :home_index_path
 
   def index
+    add_breadcrumb "contracts", contracts_path
     add_breadcrumb "salary activities for #{@contract.id}"
     @salary_activities = @contract.salary_activities.order :effective_date
   end
