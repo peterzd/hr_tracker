@@ -1,4 +1,4 @@
-%table.table.table-striped.table-bordered.table-hover
+%, aria-labelledby: 'dLabel'}table.table.table-striped.table-bordered.table-hover
   %tr
     %th Name
     -# %th id
@@ -36,7 +36,7 @@
           %ul{ class: 'dropdown-menu', role: 'menu', "aria-labelledby" => "dropdownMenu"}
             %li= link_to "Show", employee, { tabindex: '-1' }
             %li= (link_to 'Edit', edit_employee_path(employee), { tabindex: "-1" })
-            %li= (link_to 'Destroy', employee, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}}) 
+            %li= (link_to 'Destroy', employee, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}})
       %td= link_to 'Bonuses', bonuses_path(employee.nickname)
 
 %br
