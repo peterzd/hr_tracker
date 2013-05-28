@@ -6,7 +6,11 @@
   .control-group
     = f.label :distribution_date, class: 'control-label'
     .controls
-      = f.date_select :distribution_date
+      #datepicker.input-append
+        = f.text_field :distribution_date, { "data-format" => "yyyy-MM-dd" }
+        %span.add-on
+          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
+
   .control-group
     = f.label :comment, class: 'control-label'
     .controls

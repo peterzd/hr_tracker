@@ -24,15 +24,28 @@
   .control-group
     = f.label :birthdate, class: 'control-label'
     .controls
-      = f.date_select :birthdate, use_short_month: true, start_year: 1980, class: 'controls'
+      #datepicker.input-append
+        = f.text_field :birthdate, { "data-format" => "yyyy-MM-dd" }
+        %span.add-on
+          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
+
+      -# = f.date_select :birthdate, use_short_month: true, start_year: 1980, class: 'controls'
   .control-group
     = f.label :originate_start_date, class: 'control-label'
     .controls
-      = f.date_select :originate_start_date, use_short_month: true, start_year: 2008
+      #datepicker_start_date.input-append
+        = f.text_field :originate_start_date, { "data-format" => "yyyy-MM-dd" }
+        %span.add-on
+          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
+      -# = f.date_select :originate_start_date, use_short_month: true, start_year: 2008
   .control-group
     = f.label :originate_end_date, class: 'control-label'
     .controls
-      = f.date_select :originate_end_date, use_short_month: true, start_year: 2008
+      #datepicker_end_date.input-append
+        = f.text_field :originate_end_date, { "data-format" => "yyyy-MM-dd" }
+        %span.add-on
+          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
+      -# = f.date_select :originate_end_date, use_short_month: true, start_year: 2008
   .control-group
     = f.label :current_employee, class: 'control-label'
     .controls

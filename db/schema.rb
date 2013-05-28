@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130522075909) do
+ActiveRecord::Schema.define(:version => 20130527090629) do
 
   create_table "bonuses", :force => true do |t|
     t.float    "amount"
@@ -78,10 +78,10 @@ ActiveRecord::Schema.define(:version => 20130522075909) do
     t.float    "previous_salary"
     t.float    "current_salary"
     t.integer  "contract_id"
-    t.date     "discusstion_date"
+    t.date     "discussion_date"
     t.date     "effective_date"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "salary_activities", ["contract_id"], :name => "index_salary_activities_on_contract_id"
