@@ -1,16 +1,16 @@
 class EmployeesController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb "home", :home_index_path
+
   def index
     @employees = Employee.order :id
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @employees }
-    end
   end
 
   def show
+    add_breadcrumb "employees", employees_path
+    add_breadcrumb "#{current_employee.nickname}", employee_path(current_employee)
+
     @employee = Employee.find(params[:id])
 
     respond_to do |format|
@@ -20,6 +20,7 @@ class EmployeesController < ApplicationController
   end
 
   def new
+    add_breadcrumb "new"
     @employee = Employee.new
 
     respond_to do |format|
@@ -29,6 +30,7 @@ class EmployeesController < ApplicationController
   end
 
   def edit
+    add_breadcrumb "#{current_employee.nickname}", employee_path(current_employee)
     @employee = Employee.find(params[:id])
   end
 

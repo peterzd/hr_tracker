@@ -15,7 +15,7 @@ class Employee < ActiveRecord::Base
   default_scope order :id
 
   def to_s
-    [email, nickname].join " "
+    nickname
   end
 end
 

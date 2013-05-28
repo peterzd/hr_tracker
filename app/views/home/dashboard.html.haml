@@ -1,5 +1,4 @@
 %h1 Home#dashboard
-%p Find me in app/views/home/dashboard.html.haml
-= link_to "Employees", employees_path
-%br
 = link_to "Contracts", contracts_path
+%br
+= render 'employees/table'

@@ -2,12 +2,18 @@ class SalaryActivitiesController < ApplicationController
   authorize_resource
   load_resource :contract, except: [:create, :update]
 
+  add_breadcrumb "home", :home_index_path
+
   def index
+    add_breadcrumb "contracts", contracts_path
+    add_breadcrumb "salary activities for #{@contract.id}"
     @salary_activities = @contract.salary_activities.order :effective_date
   end
 
   def show
     @salary_activity = SalaryActivity.find(params[:id])
+    add_breadcrumb "salary activities for #{@contract.id}", contract_salary_activities_path(@contract)
+    add_breadcrumb "#{@salary_activity.id}"
   end
 
   def new
@@ -16,12 +22,16 @@ class SalaryActivitiesController < ApplicationController
     previous_salary = last_activity.current_salary unless last_activity.nil?
     @salary_activity = @contract.salary_activities.new(previous_salary: previous_salary)
     @discussion = Discussion.new
+    add_breadcrumb "salary activities for #{@contract.id}", contract_salary_activities_path(@contract)
+    add_breadcrumb "new"
   end
 
   def edit
     @contract = Contract.where(id: params[:contract_id]).first
     @salary_activity = SalaryActivity.find(params[:id])
     @discussion = @salary_activity.discussion || @salary_activity.build_discussion
+    add_breadcrumb "salary activities for #{@contract.id}", contract_salary_activities_path(@contract)
+    add_breadcrumb "#{@salary_activity.id}"
   end
 
   def create

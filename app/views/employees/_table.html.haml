@@ -1,0 +1,47 @@
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Name
+    -# %th id
+    %th Nickname
+    -# %th Birthdate
+    %th Originate start date
+    %th Originate end date
+    %th Current employee
+    -# %th Years prior exp
+    -# %th University
+    -# %th Degree
+    %th Is system admin
+    -# %th Is admin
+    %th
+    %th
+    -# %th
+
+  - @employees.each do |employee|
+    %tr
+      %td= link_to "#{employee.name}", employee
+      -# %td= employee.id
+      %td= link_to "#{employee.nickname}", employee
+      -# %td= employee.birthdate
+      %td= employee.originate_start_date
+      %td= employee.originate_end_date
+      %td= employee.current_employee
+      -# %td= employee.years_prior_exp
+      -# %td= employee.university
+      -# %td= employee.degree
+      %td= employee.is_system_admin
+      -# %td= employee.is_admin
+      %td
+        .dropdown
+          = link_to "Operations", "#", { class: 'dropdown-toggle', "data-toggle" => "dropdown" }
+          %ul{ class: 'dropdown-menu', role: 'menu', "aria-labelledby" => "dropdownMenu"}
+            %li= link_to "Show", employee, { tabindex: '-1' }
+            %li= (link_to 'Edit', edit_employee_path(employee), { tabindex: "-1" })
+            %li= (link_to 'Destroy', employee, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}})
+      - if can? :manage, Bonus
+        %td= link_to 'Bonuses', bonuses_path(employee.nickname)
+      - elsif can? :manage, employee
+        %td= link_to 'Show My Bonuses', bonuses_path(employee.nickname)
+
+%br
+
+= link_to 'New Employee', new_employee_path

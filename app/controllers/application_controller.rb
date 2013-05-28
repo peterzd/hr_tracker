@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  # add_breadcrumb 'home', :home_index_path
+
   protect_from_forgery
   def after_sign_in_path_for(user)
     home_dashboard_path

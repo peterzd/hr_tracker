@@ -1,49 +1,63 @@
-= form_for @employee do |f|
+= form_for @employee, { html: { class: 'form-horizontal' } } do |f|
   - if @employee.errors.any?
     #error_explanation
       %h2= "#{pluralize(@employee.errors.count, "error")} prohibited this employee from being saved:"
       %ul
         - @employee.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :nickname
-    = f.text_field :nickname
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :password
-    = f.password_field :password
-  .field
-    = f.label :birthdate
-    = f.date_select :birthdate
-  .field
-    = f.label :originate_start_date
-    = f.date_select :originate_start_date
-  .field
-    = f.label :originate_end_date
-    = f.date_select :originate_end_date
-  .field
-    = f.label :current_employee
-    = f.check_box :current_employee
-  .field
-    = f.label :years_prior_exp
-    = f.number_field :years_prior_exp
-  .field
-    = f.label :university
-    = f.text_field :university
-  .field
-    = f.label :degree
-    = f.text_field :degree
-  .field
-    = f.label :is_system_admin
-    = f.check_box :is_system_admin
-  .field
-    = f.label :is_admin
-    = f.check_box :is_admin
-  .actions
-    = f.submit 'Save'
+  .control-group
+    = f.label :name, class: 'control-label'
+    .controls
+      = f.text_field :name
+  .control-group
+    = f.label :nickname, class: 'control-label'
+    .controls
+      = f.text_field :nickname
+  .control-group
+    = f.label :email, class: 'control-label'
+    .controls
+      = f.text_field :email
+  .control-group
+    = f.label :password, class: 'control-label'
+    .controls
+      = f.password_field :password
+  .control-group
+    = f.label :birthdate, class: 'control-label'
+    .controls
+      = f.date_select :birthdate, use_short_month: true, start_year: 1980, class: 'controls'
+  .control-group
+    = f.label :originate_start_date, class: 'control-label'
+    .controls
+      = f.date_select :originate_start_date, use_short_month: true, start_year: 2008
+  .control-group
+    = f.label :originate_end_date, class: 'control-label'
+    .controls
+      = f.date_select :originate_end_date, use_short_month: true, start_year: 2008
+  .control-group
+    = f.label :current_employee, class: 'control-label'
+    .controls
+      = f.check_box :current_employee
+  .control-group
+    = f.label :years_prior_exp, class: 'control-label'
+    .controls
+      = f.number_field :years_prior_exp
+  .control-group
+    = f.label :university, class: 'control-label'
+    .controls
+      = f.text_field :university
+  .control-group
+    = f.label :degree, class: 'control-label'
+    .controls
+      = f.text_field :degree
+  .control-group
+    = f.label :is_system_admin, class: 'control-label'
+    .controls
+      = f.check_box :is_system_admin
+  .control-group
+    = f.label :is_admin, class: 'control-label'
+    .controls
+      = f.check_box :is_admin
+  .control-group
+    .controls
+      = f.submit 'Save', class: 'btn'
+      = link_to "Cancel", employees_path, class: 'btn'
