@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = 'can not visit'
     redirect_to root_url, alert: exception.message
   end
 end
