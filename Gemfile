@@ -8,14 +8,16 @@ gem 'haml-rails', '~> 0.4'
 gem 'devise', '~> 2.2.3'
 gem 'cancan', '~> 1.6.9'
 gem 'timecop'
-gem 'twitter-bootstrap-rails'
 gem 'breadcrumbs_on_rails'
-
+gem 'less-rails-bootstrap'
+gem 'less-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'therubyracer'
+  gem 'twitter-bootstrap-rails'
 end
 
 group :development, :test do
