@@ -1,5 +1,13 @@
-.footer{
+@mixin align-center($width_num: 214px) {
   margin-left: auto;
   margin-right: auto;
-  width: 214px;
+  width: $width_num;
+
+}
+.footer{
+  @include align-center;
+}
+
+.sign_in_links {
+  @include align-center;
 }
