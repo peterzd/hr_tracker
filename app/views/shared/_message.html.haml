@@ -1,0 +1,10 @@
+- if flash[:error]
+  .alert.fade.in
+    %button{ type: 'button', class: 'close', "data-dismiss" => 'alert'}
+      &times;
+    %h4= "Warning!#{flash[:error]}"
+- elsif flash[:success]
+  .alert.alert-success.fade.in
+    %button{ type: 'button', class: 'close', "data-dismiss" => 'alert'}
+      &times;
+    %h4= "Success!#{flash[:success]}"
