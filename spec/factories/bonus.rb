@@ -1,7 +1,5 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :bonu, :class => 'Bonus' do
+  factory :bonus do
     amount 1.5
     distribution_date "2013-05-22"
     comment "MyText"

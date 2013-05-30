@@ -1,25 +1,47 @@
 require 'spec_helper'
 
 describe BonusesController do
+  helper_objects
 
   describe "GET 'index'" do
 
     context "logged in as system admin" do
-      login_admin
 
-      it "lists all the bonus of this employee" do
-        subject.current_employee.should_not be_nil
+      before :each do
+        sign_in sameer
+        sameer.bonuses << create_list(:bonus, 5)
       end
 
-      it "has the system admin privilege" do
-        subject.current_employee.is_system_admin.should be_true
+      it "lists all the bonuses of my-self" do
+        get :index, nickname: sameer.nickname
+        assigns[:bonuses].count.should == sameer.bonuses.count
       end
+
+      it "can access others bonuses" do
+        get :index, nickname: peter.nickname
+        response.should be_success
+      end
+
     end
 
-    context "logged in as the owner employee"
+    context "logged in as the owner employee" do
 
-    context "logged in as other common employees"
+      before :each do
+        sign_in peter
+        peter.bonuses << create_list(:bonus, 7)
+      end
 
+      it "lists all the bonuses of my-self" do
+        get :index, nickname: peter.nickname
+        assigns[:bonuses].count.should == peter.bonuses.count
+      end
+
+      it "can't access others bonuses" do
+        get :index, nickname: allen.nickname
+        response.should redirect_to root_path
+      end
+
+    end
   end
 =begin
   describe "GET 'new'" do
