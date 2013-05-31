@@ -91,7 +91,7 @@ describe BonusesController do
         assigns[:bonus].employee.id.should == peter.id
       end
 
-      it "saves the bonus in DB" do
+      it "saves the bonus in database" do
         expect { post :create, nickname: peter.nickname, bonus: attributes_for(:bonus, amount: 1000) }.to change{ peter.bonuses.count}.by(1)
       end
 
@@ -102,39 +102,168 @@ describe BonusesController do
         sign_in peter
       end
 
+      it "can not be accessed" do
+        post :create, nickname: peter.nickname, bonus: attributes_for(:bonus, amount: 1000)
+        response.should redirect_to root_path
+      end
 
-
+      it "can not change the count in database" do
+        expect{post :create, nickname: peter.nickname, bonus: attributes_for(:bonus, amount: 1000)}.to_not change{ peter.bonuses.count}
+      end
 
     end
   end
 
-=begin
   describe "GET 'edit'" do
-    it "returns http success" do
-      get 'edit'
-      response.should be_success
+    let(:peter_bonus) { create(:bonus, amount: 1111, employee: peter) }
+
+    context "logged in as system admin" do
+
+      before :each do
+        sign_in sameer
+        get :edit, nickname: peter.nickname, id: peter_bonus.id
+      end
+
+      it "renders the edit page" do
+        response.should render_template 'edit'
+      end
+
+      it "assigns the determined employee's bonus" do
+        assigns[:bonus].employee.should == peter
+      end
+    end
+
+    context "logged in as normal employee" do
+      before :each do
+        sign_in peter
+      end
+
+      it "can not access the edit page" do
+        get :edit, nickname: peter.nickname, id: peter_bonus.id
+        response.should redirect_to root_path
+      end
+    end
+
+  end
+
+  describe "PUT 'update'" do
+    let(:peter_bonus) { create(:bonus, amount: 1111, employee: peter) }
+
+    context "logged in as system admin" do
+      before :each do
+        sign_in sameer
+      end
+
+      it "changes the attributes of the bonus" do
+        expect{ put :update, nickname: peter.nickname, id: peter_bonus.id, bonus: attributes_for(:bonus, amount: 1122)}.to change{ peter_bonus.reload.amount }.from(1111).to(1122)
+      end
+
+      it "changes the employee's bonus attribute" do
+        put :update, nickname: peter.nickname, id: peter_bonus.id, bonus: attributes_for(:bonus, amount: 1122)
+        peter.bonuses.find(peter_bonus.id).amount.should eq 1122
+      end
+
+
+      it "redirects to the bonuses index page" do
+        put :update, nickname: peter.nickname, id: peter_bonus.id, bonus: attributes_for(:bonus, amount: 1122)
+        response.should redirect_to bonuses_path
+      end
+    end
+
+    context "logged in as normal employee" do
+      before :each do
+        sign_in peter
+      end
+
+      it "can not be successful" do
+        put :update, nickname: peter.nickname, id: peter_bonus.id, bonus: attributes_for(:bonus, amount: 1122)
+        response.should redirect_to root_path
+      end
     end
   end
 
-  describe "GET 'update'" do
-    it "returns http success" do
-      get 'update'
-      response.should be_success
-    end
-  end
 
-  describe "GET 'destroy'" do
-    it "returns http success" do
-      get 'destroy'
-      response.should be_success
+  describe "DELETE 'destroy'" do
+    let(:peter_bonus) { create(:bonus, amount: 1111, employee: peter) }
+
+    context "logged in as system admin" do
+      before :each do
+        sign_in sameer
+      end
+
+      it "deletes the bonus" do
+        peter_bonus.save
+        expect{ delete :destroy, nickname: peter.nickname, id: peter_bonus.id }.to change{ Bonus.all.count }.by(-1)
+      end
+
+      it "redirects to the bonuses page" do
+        delete :destroy, nickname: peter.nickname, id: peter_bonus.id
+        response.should redirect_to bonuses_path
+      end
+
+      it "removes the bonus from the employee's bonuses" do
+        delete :destroy, nickname: peter.nickname, id: peter_bonus.id
+        peter.bonuses.should_not include(peter_bonus)
+      end
+    end
+
+    context "logged in as normal employee" do
+      before :each do
+        sign_in peter
+      end
+
+      it "can not do the operation" do
+        delete :destroy, nickname: peter.nickname, id: peter_bonus.id
+        response.should redirect_to root_path
+      end
     end
   end
 
   describe "GET 'show'" do
-    it "returns http success" do
-      get 'show'
-      response.should be_success
+    let(:peter_bonus) { create(:bonus, amount: 1111, employee: peter) }
+    let(:allen_bonus) { create(:bonus, amount: 2222, employee: allen) }
+    let(:sameer_bonus) { create(:bonus, amount: 3333, employee: sameer) }
+
+    context "logged in as system admin" do
+      before :each do
+        sign_in sameer
+      end
+
+      it "can access other's bonuses" do
+        get :show, nickname: peter.nickname, id: peter_bonus
+        response.should render_template 'show'
+      end
+
+      it "can access my own bonuses" do
+        get :show, nickname: sameer.nickname, id: sameer_bonus
+        response.should render_template 'show'
+      end
+
+      it "assigns the corresponding bonus" do
+        get :show, nickname: peter.nickname, id: peter_bonus
+        assigns[:bonus].employee.should eq peter
+      end
+    end
+
+    context "logged in as normal employee" do
+      before :each do
+        sign_in peter
+      end
+
+      it "can not access other's bonuses" do
+        get :show, nickname: allen.nickname, id: allen_bonus
+        response.should redirect_to root_path
+      end
+
+      it "can access my own's bonuses" do
+        get :show, nickname: peter.nickname, id: peter_bonus
+        response.should render_template 'show'
+      end
+
+      it "assigns my own's bonus" do
+        get :show, nickname: peter.nickname, id: peter_bonus
+        assigns[:bonus].employee.should eq peter
+      end
     end
   end
-=end
 end
