@@ -1,25 +1,33 @@
 require 'spec_helper'
 
+shared_examples "logged in as system admin" do |example_title|
+  before :each do
+    sign_in sameer
+    sameer.bonuses << create_list(:bonus, 5)
+    request
+  end
+
+  it example_title do
+    assertion
+  end
+
+end
+
+
 describe BonusesController do
   helper_objects
 
   describe "GET 'index'" do
 
     context "logged in as system admin" do
-      before :each do
-        sign_in sameer
-        sameer.bonuses << create_list(:bonus, 5)
-      end
+      let(:request) { get :index, nickname: sameer.nickname }
+      let(:assertion) { assigns[:bonuses].count.should == sameer.bonuses.count }
+      it_should_behave_like "logged in as system admin", "lists all the bonuses of my self"
 
-      it "lists all the bonuses of my-self" do
-        get :index, nickname: sameer.nickname
-        assigns[:bonuses].count.should == sameer.bonuses.count
-      end
+      let(:request) { get :index, nickname: peter.nickname }
+      let(:assertion) { response.should be_success }
+      it_should_behave_like "logged in as system admin", "can access others bonuses"
 
-      it "can access others bonuses" do
-        get :index, nickname: peter.nickname
-        response.should be_success
-      end
     end
 
     context "logged in as the owner employee" do
@@ -115,7 +123,6 @@ describe BonusesController do
   end
 
   describe "GET 'edit'" do
-    let(:peter_bonus) { create(:bonus, amount: 1111, employee: peter) }
 
     context "logged in as system admin" do
 
@@ -147,7 +154,6 @@ describe BonusesController do
   end
 
   describe "PUT 'update'" do
-    let(:peter_bonus) { create(:bonus, amount: 1111, employee: peter) }
 
     context "logged in as system admin" do
       before :each do
@@ -184,7 +190,6 @@ describe BonusesController do
 
 
   describe "DELETE 'destroy'" do
-    let(:peter_bonus) { create(:bonus, amount: 1111, employee: peter) }
 
     context "logged in as system admin" do
       before :each do
@@ -220,9 +225,6 @@ describe BonusesController do
   end
 
   describe "GET 'show'" do
-    let(:peter_bonus) { create(:bonus, amount: 1111, employee: peter) }
-    let(:allen_bonus) { create(:bonus, amount: 2222, employee: allen) }
-    let(:sameer_bonus) { create(:bonus, amount: 3333, employee: sameer) }
 
     context "logged in as system admin" do
       before :each do
