@@ -9,7 +9,7 @@
       #datepicker.input-append
         = f.text_field :distribution_date, { "data-format" => "yyyy-MM-dd" }
         %span.add-on
-          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
+          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar', class: 'icon-calendar' }
 
   .control-group
     = f.label :comment, class: 'control-label'

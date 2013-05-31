@@ -47,6 +47,7 @@ class SalaryActivitiesController < ApplicationController
       @contract.update_attribute(:salary, @salary_activity.current_salary)
       @discussion = @salary_activity.build_discussion(params[:discussion])
       if @discussion.save
+        flash[:success] = ' Created a new salary activity'
         redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully created.'
       else
         render action: "new"
@@ -70,6 +71,7 @@ class SalaryActivitiesController < ApplicationController
 
       @discussion = @salary_activity.discussion.update_attributes(params[:discussion])
       @contract.update_attribute(:salary, @salary_activity.current_salary)
+      flash[:success] = ' Edited the salary activity'
       redirect_to contract_salary_activities_path(@contract), notice: 'Salary activity was successfully updated.'
     else
       render action: "edit"
@@ -80,6 +82,7 @@ class SalaryActivitiesController < ApplicationController
     @salary_activity = SalaryActivity.find(params[:id])
     @salary_activity.destroy
 
+    flash[:success] = ' Destroyed the salary activity'
     redirect_to contract_salary_activities_path(@contract)
   end
 end
