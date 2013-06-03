@@ -118,7 +118,15 @@ describe EmployeesController do
       end
     end
 
-    context "logged in as system admin" do
+    context "logged in a normal employee" do
+      before :each do
+        sign_in peter
+      end
+
+      it "can not access" do
+        post :create, employee: attributes_for(:employee, email: 'test@originatechina.com', originate_start_date: Date.current)
+        response.should redirect_to root_path
+      end
     end
 =begin
     describe "with valid params" do
@@ -158,15 +166,50 @@ describe EmployeesController do
 =end
   end
 
-=begin
-  describe "PUT edit" do
-    it "assigns the requested employee as @employee" do
-      employee = Employee.create! valid_attributes
-      get :edit, {:id => employee.to_param}, valid_session
-      assigns(:employee).should eq(employee)
+  describe "GET edit" do
+    context "logged in as system admin" do
+      before :each do
+        sign_in sameer
+      end
+
+      it "renders the edit page" do
+        get :edit, id: sameer.id
+        response.should render_template 'edit'
+      end
+
+      it "assigns the edited employee to @employee" do
+        get :edit, id: sameer.id
+        assigns[:employee].nickname.should eq 'sameer'
+      end
+    end
+
+    context "logged in a normal employee" do
+      before :each do
+        sign_in peter
+      end
+
+      context "edit other's profile" do
+        it "can not access other's edit page" do
+          get :edit, id: allen.id
+          response.should redirect_to root_path
+        end
+      end
+
+      context "edit my own profile" do
+        it "can access his own profile" do
+          get :edit, id: peter.id
+          response.should render_template 'edit'
+        end
+
+        it "assigns the edited employee to @employee" do
+          get :edit, id: peter.id
+          assigns[:employee].nickname.should eq 'peter'
+        end
+      end
     end
   end
 
+=begin
 
   describe "PUT update" do
     describe "with valid params" do
