@@ -13,6 +13,7 @@ class Employee < ActiveRecord::Base
   has_many :bonuses # , class_name: 'Bonus'
 
   default_scope order :id
+  scope :current_employees, where(current_employee: true)
 
   def to_s
     nickname

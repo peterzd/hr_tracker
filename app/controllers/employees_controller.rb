@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   add_breadcrumb "home", :home_index_path
 
   def index
-    @employees = Employee.order :id
+    @employees = Employee.current_employees
   end
 
   def show
@@ -37,14 +37,10 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(params[:employee])
 
-    respond_to do |format|
-      if @employee.save
-        format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
-        format.json { render json: @employee, status: :created, location: @employee }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
-      end
+    if @employee.save
+      redirect_to employees_path, notice: 'Employee was successfully created.'
+    else
+      render action: "new"
     end
   end
 
