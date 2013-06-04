@@ -12,14 +12,14 @@ describe EmployeesController do
     let(:assigns_assertion) { assigns[:employees].count == Employee.current_employees.count }
     let(:page_behavior) { render_template 'index' }
     it_should_behave_like "access by the admin", '@employees'
-    it_should_behave_like "access by the normal employee",'index', "@employees"
+    it_should_behave_like "access by the normal employee", "@employees"
   end
 
   describe "GET show" do
     let(:request) { get :show, id: peter.id }
     let(:page_behavior) { render_template 'show' }
     it_should_behave_like "access by the admin"
-    it_should_behave_like "access by the normal employee", 'show'
+    it_should_behave_like "access by the normal employee"
 
     it "denied for accessing other's page" do
       get :show, id: allen.id
@@ -40,7 +40,10 @@ describe EmployeesController do
     let(:request) { post :create, employee: attributes_for(:employee, email: 'test@originatechina.com', originate_start_date: Date.current) }
     let(:assigns_assertion) { assigns[:employee].should be_persisted }
     let(:page_behavior) { redirect_to employees_path }
-    it_should_behave_like 'access by the admin'
+    let(:database_performs) { Employee.all.should include assigns[:employee] }
+    it_should_behave_like 'access by the admin', '@employee'
+
+    it_should_behave_like 'denied by the normal employee'
 
     # refactor
 =begin
