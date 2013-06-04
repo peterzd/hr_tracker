@@ -5,66 +5,24 @@ describe EmployeesController do
 
   describe "GET index" do
     before :each do
-      sameer.save
-      peter.save
-      allen.save
-      andy.save
+      [sameer, peter, allen, andy].each(&:save)
     end
 
-    context "logged in as the system admin" do
-      before :each do
-        sign_in sameer
-      end
-
-      it "renders the index page" do
-        get :index
-        response.should render_template 'index'
-      end
-
-      it "assigns the @employees with all the employees that are current employee" do
-        get :index
-        assigns[:employees].count.should eq Employee.current_employees.count
-      end
-    end
-
-    context "logged in as a normal employee" do
-      before :each do
-        sign_in peter
-      end
-
-      it "renders the page" do
-        get :index
-        response.should render_template 'index'
-      end
-    end
+    let(:request) { get :index }
+    let(:assigns_assertion) { assigns[:employees].count == Employee.current_employees.count }
+    it_should_behave_like "access by the admin", 'index', '@employees'
+    it_should_behave_like "access by the normal employee", "index", "@employees"
   end
 
   describe "GET show" do
-    context "logged in as the system admin" do
-      before :each do
-        sign_in sameer
-      end
 
-      it "shows the detail of the employee" do
-        get :show, id: peter.id
-        response.should render_template 'show'
-      end
-    end
+    let(:request) { get :show, id: peter.id }
+    it_should_behave_like "access by the admin", 'show'
+    it_should_behave_like "access by the normal employee", 'show'
 
-    context "logged in as a normal employee" do
-      before :each do
-        sign_in peter
-      end
-
-      it "shows my own detail" do
-        get :show, id: peter.id
-        response.should render_template 'show'
-      end
-
-      it "can not access other's detail" do
-        get :show, id: allen.id
-        response.should redirect_to root_path
-      end
+    it "for other's profile" do
+      get :show, id: allen.id
+      response.should redirect_to root_path
     end
   end
 
