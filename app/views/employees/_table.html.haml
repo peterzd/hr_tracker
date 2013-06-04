@@ -37,11 +37,12 @@
             %li= link_to "Show", employee, { tabindex: '-1' }
             %li= (link_to 'Edit', edit_employee_path(employee), { tabindex: "-1" })
             %li= (link_to 'Destroy', employee, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}})
-      - if can? :manage, Bonus
+      - if can? :read, Bonus
         %td= link_to 'Bonuses', bonuses_path(employee.nickname)
       - elsif can? :manage, employee
         %td= link_to 'Show My Bonuses', bonuses_path(employee.nickname)
 
 %br
 
+= link_to 'List all employees', "#"
 = link_to 'New Employee', new_employee_path

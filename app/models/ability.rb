@@ -9,15 +9,18 @@ class Ability
       can :manage, Employee do |managed_user|
         managed_user.id == employee.id
       end
+      cannot :destroy, Employee
       can :read, Contract do |managed_contract|
         managed_contract.employee.id == employee.id
       end
       can :read, Bonus do |managed_bonus|
         managed_bonus.employee.id == employee.id
       end
+
       can :read, SalaryActivity do |managed_activity|
         managed_activity.employee.id == employee.id
       end
+
     end
   end
 end

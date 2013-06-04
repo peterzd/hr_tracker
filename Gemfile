@@ -24,6 +24,10 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.2.0'
   gem 'rspec-rails', '~> 2.13.0'
   gem 'faker', '~> 1.1.2'
+  gem 'capybara'
+  gem 'ZenTest'
+  gem 'autotest-rails'
+  gem 'spork-rails'
 end
 
 gem 'jquery-rails'
