@@ -48,7 +48,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.find(params[:id])
 
     if @employee.update_attributes(params[:employee])
-      redirect_to @employee, notice: 'Employee was successfully updated.'
+      redirect_to employees_path, notice: 'Employee was successfully updated.'
     else
       render action: "edit"
     end

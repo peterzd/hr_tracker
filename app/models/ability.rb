@@ -9,6 +9,7 @@ class Ability
       can :manage, Employee do |managed_user|
         managed_user.id == employee.id
       end
+      cannot :destroy, Employee
       can :read, Contract do |managed_contract|
         managed_contract.employee.id == employee.id
       end

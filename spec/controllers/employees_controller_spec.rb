@@ -128,42 +128,6 @@ describe EmployeesController do
         response.should redirect_to root_path
       end
     end
-=begin
-    describe "with valid params" do
-      it "creates a new Employee" do
-        expect {
-          post :create, {:employee => valid_attributes}, valid_session
-        }.to change(Employee, :count).by(1)
-      end
-
-      it "assigns a newly created employee as @employee" do
-        post :create, {:employee => valid_attributes}, valid_session
-        assigns(:employee).should be_a(Employee)
-        assigns(:employee).should be_persisted
-      end
-
-      it "redirects to the created employee" do
-        post :create, {:employee => valid_attributes}, valid_session
-        response.should redirect_to(Employee.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved employee as @employee" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Employee.any_instance.stub(:save).and_return(false)
-        post :create, {:employee => { "name" => "invalid value" }}, valid_session
-        assigns(:employee).should be_a_new(Employee)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Employee.any_instance.stub(:save).and_return(false)
-        post :create, {:employee => { "name" => "invalid value" }}, valid_session
-        response.should render_template("new")
-      end
-    end
-=end
   end
 
   describe "GET edit" do
@@ -209,65 +173,90 @@ describe EmployeesController do
     end
   end
 
-=begin
-
   describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested employee" do
-        employee = Employee.create! valid_attributes
-        # Assuming there are no other employees in the database, this
-        # specifies that the Employee created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Employee.any_instance.should_receive(:update_attributes).with({ "name" => "MyString" })
-        put :update, {:id => employee.to_param, :employee => { "name" => "MyString" }}, valid_session
+    context "logged in as system admin" do
+      before :each do
+        sign_in sameer
       end
 
-      it "assigns the requested employee as @employee" do
-        employee = Employee.create! valid_attributes
-        put :update, {:id => employee.to_param, :employee => valid_attributes}, valid_session
-        assigns(:employee).should eq(employee)
+      it "updates the attributes of this employee in the database" do
+        put :update, employee: attributes_for(:employee, nickname: "alex"), id: peter.id
+        peter.reload.nickname.should eq 'alex'
       end
 
-      it "redirects to the employee" do
-        employee = Employee.create! valid_attributes
-        put :update, {:id => employee.to_param, :employee => valid_attributes}, valid_session
-        response.should redirect_to(employee)
+      it "reditects to employees index page" do
+        put :update, employee: attributes_for(:employee, nickname: "alex"), id: peter.id
+        response.should redirect_to employees_path
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the employee as @employee" do
-        employee = Employee.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Employee.any_instance.stub(:save).and_return(false)
-        put :update, {:id => employee.to_param, :employee => { "name" => "invalid value" }}, valid_session
-        assigns(:employee).should eq(employee)
+    context "logged in a normal employee" do
+      before :each do
+        sign_in peter
       end
 
-      it "re-renders the 'edit' template" do
-        employee = Employee.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Employee.any_instance.stub(:save).and_return(false)
-        put :update, {:id => employee.to_param, :employee => { "name" => "invalid value" }}, valid_session
-        response.should render_template("edit")
+      it "can not update other's profile" do
+        put :update, employee: attributes_for(:employee, nickname: "alex"), id: allen.id
+        response.should redirect_to root_path
+      end
+
+      context "with valid params" do
+        it "can update my own's profile with valid attributes" do
+          put :update, employee: attributes_for(:employee, nickname: "alex"), id: peter.id
+          peter.reload.nickname.should eq 'alex'
+        end
+
+        it "redirects to the employees index page" do
+          put :update, employee: attributes_for(:employee, nickname: "alex"), id: peter.id
+          response.should redirect_to employees_path
+        end
+      end
+
+      context "with invalid params" do
+        pending "set some invalid params"
       end
     end
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested employee" do
-      employee = Employee.create! valid_attributes
-      expect {
-        delete :destroy, {:id => employee.to_param}, valid_session
-      }.to change(Employee, :count).by(-1)
+    context "logged in as system admin" do
+      let(:request) { delete :destroy, id: allen.id }
+
+      before :each do
+        sign_in sameer
+        allen.save
+      end
+
+      it "destroys the requested employee" do
+        request
+        Employee.all.should_not include allen
+      end
+
+      it "removes a record from database" do
+        expect{ request }.to change{Employee.count}.by(-1)
+      end
+
+      it "redirects to the employees list" do
+        request
+        response.should redirect_to employees_path
+      end
     end
 
-    it "redirects to the employees list" do
-      employee = Employee.create! valid_attributes
-      delete :destroy, {:id => employee.to_param}, valid_session
-      response.should redirect_to(employees_url)
+    context "logged in as a normal employee" do
+      before :each do
+        sign_in peter
+      end
+
+      it "can not destroys my self in the database" do
+        peter.save
+        expect{ delete :destroy, id: peter.id }.to_not change{ Employee.count }
+      end
+
+
+      it "can not do the operation" do
+        delete :destroy, id: peter.id
+        response.should redirect_to root_path
+      end
     end
   end
-=end
 end
