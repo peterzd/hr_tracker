@@ -28,7 +28,6 @@ class BonusesController < ApplicationController
 
   def edit
     employee = Employee.where(nickname: params[:nickname].strip).first
-    @bonus = Bonus.find params[:id]
     @action = { action: "update" }
     add_breadcrumb 'bonuses', bonuses_path
     add_breadcrumb "#{employee.nickname}"

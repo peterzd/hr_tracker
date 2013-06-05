@@ -7,6 +7,11 @@ class EmployeesController < ApplicationController
     @employees = Employee.current_employees
   end
 
+  def ajax_list_all
+    @employees = Employee.all
+    render partial: 'table', content_type: 'text/html'
+  end
+
   def show
     add_breadcrumb "employees", employees_path
     add_breadcrumb "#{current_employee.nickname}", employee_path(current_employee)

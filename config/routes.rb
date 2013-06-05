@@ -15,7 +15,11 @@ HrTracker::Application.routes.draw do
   root :to => 'home#index'
 
   devise_for :employee
-  resources :employees
+  resources :employees do
+    collection do
+      get 'ajax_list_all'
+    end
+  end
 
   scope ":nickname" do
     resources :bonuses, controller: :bonuses
