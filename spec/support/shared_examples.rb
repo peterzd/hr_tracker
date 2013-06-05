@@ -7,7 +7,7 @@
 
 shared_examples "assigns variable" do |variable|
   it "assigns the #{variable} with the assertion" do
-    assigns_assertion.should be_true
+    assigns_assertion.should be_true if defined? assigns_assertion
   end
 end
 
@@ -31,11 +31,9 @@ shared_examples "access by the admin" do |variable|
   end
 
   # it_should_behave_like "successful render page", target_page
-
-  it_should_behave_like "assigns variable", variable if variable
+  it_should_behave_like "assigns variable", variable
   it_should_behave_like "page behaves"
   it_should_behave_like "database performs"
-
 end
 
 shared_examples "access by the normal employee" do |variable|
@@ -44,8 +42,9 @@ shared_examples "access by the normal employee" do |variable|
     request
   end
 
-  it_should_behave_like "assigns variable", variable if variable
+  it_should_behave_like "assigns variable", variable
   it_should_behave_like "page behaves"
+  it_should_behave_like "database performs"
 end
 
 shared_examples "denied by the normal employee" do |page|
