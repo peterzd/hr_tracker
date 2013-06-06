@@ -16,6 +16,12 @@ class SalaryActivitiesController < ApplicationController
     add_breadcrumb "#{@salary_activity.id}"
   end
 
+  def ajax_new
+    @contract = Contract.where(id: params[:contract_id]).first
+    @salary_activity = @contract.salary_activities.build()
+
+  end
+
   def new
     @contract = Contract.where(id: params[:contract_id]).first
     last_activity = SalaryActivity.last

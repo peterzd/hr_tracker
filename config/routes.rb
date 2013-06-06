@@ -4,6 +4,10 @@ HrTracker::Application.routes.draw do
     resources :salary_activities do
       get 'discussions' => 'discussions#new_or_edit'
       match 'discussions' => 'discussions#create_or_update', via: [:post, :put]
+
+      collection do
+        get 'ajax_new'
+      end
     end
   end
 

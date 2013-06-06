@@ -4,4 +4,5 @@
 
 %br
 
-= link_to 'New Salary activity', new_contract_salary_activity_path(@contract)
+-# = link_to 'New Salary activity', new_contract_salary_activity_path(@contract), remote: true
+= link_to 'New Salary activity', ajax_new_contract_salary_activity_path(@contract), remote: true
