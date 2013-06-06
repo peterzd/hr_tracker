@@ -1,2 +1,4 @@
 :plain
   $(".table").empty().html("#{j(render partial: 'table')}");
+  $(".masthead").append("#{j(render partial: 'shared/message')}");
+  setTimeout(callback, 4000);
