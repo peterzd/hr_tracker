@@ -81,8 +81,12 @@ class SalaryActivitiesController < ApplicationController
   def destroy
     @salary_activity = SalaryActivity.find(params[:id])
     @salary_activity.destroy
+    # flash[:success] = ' Destroyed the salary activity'
+    # redirect_to contract_salary_activities_path(@contract)
+    @salary_activities = @contract.salary_activities.order :effective_date
 
-    flash[:success] = ' Destroyed the salary activity'
-    redirect_to contract_salary_activities_path(@contract)
+    respond_to do |format|
+      format.js {}
+    end
   end
 end

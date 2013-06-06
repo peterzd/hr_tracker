@@ -1,0 +1,23 @@
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Previous salary
+    %th Current salary
+    %th Contract
+    %th Discusstion date
+    %th Effective date
+    %th
+
+  - @salary_activities.each do |salary_activity|
+    %tr
+      %td= salary_activity.previous_salary
+      %td= salary_activity.current_salary
+      %td= salary_activity.contract
+      %td= salary_activity.discussion_date
+      %td= salary_activity.effective_date
+      %td
+        .dropdown
+          = link_to "Operations", "#", { class: 'dropdown-toggle', "data-toggle" => "dropdown" }
+          %ul{ class: 'dropdown-menu', role: 'menu', "aria-labelledby" => "dropdownMenu"}
+            %li= link_to "Show", contract_salary_activity_path(@contract, salary_activity), { tabindex: "-1" }
+            %li= (link_to 'Edit', edit_contract_salary_activity_path(@contract, salary_activity), { tabindex: "-1" })
+            %li= (link_to 'Destroy', contract_salary_activity_path(@contract, salary_activity), { tabindex: "-1", :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true})
