@@ -20,6 +20,7 @@ class SalaryActivitiesController < ApplicationController
     @contract = Contract.where(id: params[:contract_id]).first
     @salary_activity = @contract.salary_activities.build()
     @discussion = Discussion.new
+
   end
 
   def new
