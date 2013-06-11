@@ -20,5 +20,5 @@
             %li= link_to "Show", contract, { tabindex: "-1" }
             %li= (link_to 'Edit', edit_contract_path(contract), { tabindex: "-1" }) if can? :edit, contract
             - if can? :delete, contract
-              %li= link_to "Destroy", contract, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}, remote: true }
+              %li= link_to ("Destroy" + content_tag(:i, "", class: 'icon-trash')).html_safe, contract, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}, remote: true }
       %td= link_to 'Salary Activities', contract_salary_activities_path(contract)

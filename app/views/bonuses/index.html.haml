@@ -21,7 +21,7 @@
             %ul{ class: 'dropdown-menu', role: 'menu', "aria-labelledby" => "dropdownMenu" }
               -# %li= link_to "Show", bonus_path(@employee.nickname, bonus), { tabindex: '-1' }
               %li= link_to "Edit", edit_bonus_path(@employee.nickname, bonus), { tabindex: '-1' }
-              %li= link_to '<i class="icon-trash"></i>Destroy'.html_safe, bonus_path(@employee.nickname, bonus), { tabindex: "-1", :method => :delete, :data => { :confirm => 'Are you sure?' }}
+              %li= link_to ("Destroy" + content_tag(:i, '', class: 'icon-trash')).html_safe, bonus_path(@employee.nickname, bonus), { tabindex: "-1", :method => :delete, :data => { :confirm => 'Are you sure?' }}
 
 = link_to "New Bonus for #{@employee.nickname}", new_bonus_path(@employee.nickname)
 
