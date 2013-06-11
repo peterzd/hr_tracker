@@ -90,8 +90,6 @@ class SalaryActivitiesController < ApplicationController
     flash[:success] = ' Destroyed the salary activity'
     @salary_activities = @contract.salary_activities.order :effective_date
 
-    respond_to do |format|
-      format.js {}
-    end
+    render 'common_utils/destroy', locals: { table_name: 'table' }
   end
 end

@@ -9,12 +9,10 @@ class EmployeesController < ApplicationController
 
   def ajax_list_all
     @employees = Employee.all
-    # render partial: 'table', content_type: 'text/html'
   end
 
   def ajax_list_current
     @employees = Employee.current_employees
-    # render partial: 'table', content_type: 'text/html'
   end
 
   def show
@@ -67,10 +65,8 @@ class EmployeesController < ApplicationController
   def destroy
     @employee = Employee.find(params[:id])
     @employee.destroy
+    @employees = Employee.current_employees
 
-    respond_to do |format|
-      format.html { redirect_to employees_url }
-      format.json { head :no_content }
-    end
+    render 'common_utils/destroy', locals: { table_name: 'table' }
   end
 end
