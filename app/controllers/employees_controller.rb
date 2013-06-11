@@ -9,7 +9,12 @@ class EmployeesController < ApplicationController
 
   def ajax_list_all
     @employees = Employee.all
-    render partial: 'table', content_type: 'text/html'
+    # render partial: 'table', content_type: 'text/html'
+  end
+
+  def ajax_list_current
+    @employees = Employee.current_employees
+    # render partial: 'table', content_type: 'text/html'
   end
 
   def show

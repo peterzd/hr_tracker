@@ -22,6 +22,7 @@ HrTracker::Application.routes.draw do
   resources :employees do
     collection do
       get 'ajax_list_all'
+      get 'ajax_list_current'
     end
   end
 
