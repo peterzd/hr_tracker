@@ -9,6 +9,10 @@ HrTracker::Application.routes.draw do
         get 'ajax_new'
       end
     end
+
+    collection do
+      get 'ajax_new'
+    end
   end
 
   namespace 'home' do

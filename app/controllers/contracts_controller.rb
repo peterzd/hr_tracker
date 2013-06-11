@@ -22,6 +22,10 @@ class ContractsController < ApplicationController
     add_breadcrumb "new"
   end
 
+  def ajax_new
+    @contract = Contract.new
+  end
+
   def edit
     @contract = Contract.find(params[:id])
     add_breadcrumb "contracts", contracts_path
@@ -32,7 +36,9 @@ class ContractsController < ApplicationController
     @contract = Contract.new(constructed_contract params[:contract])
 
     if @contract.save
-      redirect_to @contract, notice: 'Contract was successfully created.'
+      # redirect_to @contract, notice: 'Contract was successfully created.'
+      @contracts = (can? :manage, Contract) ? (Contract.order :updated_at) : (Contract.current_employee_contracts current_employee)
+
     else
       render action: "new"
     end
