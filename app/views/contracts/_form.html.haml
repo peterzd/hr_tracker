@@ -9,17 +9,21 @@
   .control-group
     = f.label :start_date, class: 'control-label'
     .controls
-      #datepicker_start_date.input-append
-        = f.text_field :start_date, { "data-format" => "yyyy-MM-dd" }
+      #datepicker_start_date.input-append.date{ "data-date-format" => "yyyy-mm-dd" }
+        = f.text_field :start_date, { "data-format" => "yyyy-MM-dd", readonly: true }
         %span.add-on
-          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
+          %i{ class: "icon-remove" }
+        %span.add-on
+          %i{ class: "icon-time" }
   .control-group
     = f.label :end_date, class: 'control-label'
     .controls
-      #datepicker_end_date.input-append
-        = f.text_field :end_date, { "data-format" => "yyyy-MM-dd" }
+      #datepicker_end_date.input-append.date{ "data-date-format" => "yyyy-mm-dd" }
+        = f.text_field :end_date, { "data-format" => "yyyy-MM-dd", readonly: true }
         %span.add-on
-          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
+          %i{ class: "icon-remove" }
+        %span.add-on
+          %i{ class: "icon-time" }
   .control-group
     = f.label :salary, class: 'control-label'
     .controls

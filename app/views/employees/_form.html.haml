@@ -24,28 +24,30 @@
   .control-group
     = f.label :birthdate, class: 'control-label'
     .controls
-      #datepicker.input-append
-        = f.text_field :birthdate, { "data-format" => "yyyy-MM-dd" }
+      #datepicker_birthdate.input-append.date{ "data-date-format" => "yyyy-mm-dd", "data-date" => '1980-01-01' }
+        = f.text_field :birthdate, { "data-format" => "yyyy-MM-dd", readonly: true }
         %span.add-on
-          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
-
-      -# = f.date_select :birthdate, use_short_month: true, start_year: 1980, class: 'controls'
+          %i{ class: "icon-remove" }
+        %span.add-on
+          %i{ class: "icon-time" }
   .control-group
     = f.label :originate_start_date, class: 'control-label'
     .controls
-      #datepicker_start_date.input-append
-        = f.text_field :originate_start_date, { "data-format" => "yyyy-MM-dd" }
+      #datepicker_start_date.input-append.date{ "data-date-format" => "yyyy-mm-dd", "data-date" => '2010-01-01' }
+        = f.text_field :originate_start_date, { "data-format" => "yyyy-MM-dd", readonly: true }
         %span.add-on
-          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
-      -# = f.date_select :originate_start_date, use_short_month: true, start_year: 2008
+          %i{ class: "icon-remove" }
+        %span.add-on
+          %i{ class: "icon-time" }
   .control-group
     = f.label :originate_end_date, class: 'control-label'
     .controls
-      #datepicker_end_date.input-append
-        = f.text_field :originate_end_date, { "data-format" => "yyyy-MM-dd" }
+      #datepicker_end_date.input-append.date{ "data-date-format" => "yyyy-mm-dd" }
+        = f.text_field :originate_end_date, { "data-format" => "yyyy-MM-dd", readonly: true }
         %span.add-on
-          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
-      -# = f.date_select :originate_end_date, use_short_month: true, start_year: 2008
+          %i{ class: "icon-remove" }
+        %span.add-on
+          %i{ class: "icon-time" }
   .control-group
     = f.label :current_employee, class: 'control-label'
     .controls

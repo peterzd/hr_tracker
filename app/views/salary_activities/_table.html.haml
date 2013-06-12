@@ -20,4 +20,4 @@
           %ul{ class: 'dropdown-menu', role: 'menu', "aria-labelledby" => "dropdownMenu"}
             %li= link_to "Show", contract_salary_activity_path(@contract, salary_activity), { tabindex: "-1" }
             %li= (link_to 'Edit', edit_contract_salary_activity_path(@contract, salary_activity), { tabindex: "-1" })
-            %li= (link_to 'Destroy', contract_salary_activity_path(@contract, salary_activity), { tabindex: "-1", :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true})
+            %li= link_to ('Destroy' + content_tag(:i, '', class: 'icon-trash')).html_safe, contract_salary_activity_path(@contract, salary_activity), { tabindex: "-1", :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true}

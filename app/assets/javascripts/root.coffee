@@ -5,7 +5,13 @@ root.hide_alert = ->
   setTimeout hide_alert, 4000
 root.active_datepicker = ->
   $('div[id^=datepicker]').datetimepicker
-	  pickTime: false
+    format: 'yyyy-mm-dd',
+    autoclose: true,
+    todayBtn: true,
+    minView: 3,
+    keyboardNavigation: true,
+    pickerPosition: 'bottom-left'
+
 root.same_date = ->
   $("#datepicker_discussion_date").datetimepicker().on('changeDate', => $("#salary_activity_effective_date").val($("#salary_activity_discussion_date").val()))
 
