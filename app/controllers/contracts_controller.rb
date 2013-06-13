@@ -5,7 +5,6 @@ class ContractsController < ApplicationController
 
   def index
     add_breadcrumb "contracts"
-
     @contracts = (can? :manage, Contract) ? (Contract.order :updated_at) : (Contract.current_employee_contracts current_employee)
 
   end

@@ -1,25 +1,31 @@
 require 'spec_helper'
 
 describe ContractsController do
-
-  # This should return the minimal set of attributes required to create a valid
-  # Contract. As you add validations to Contract, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) { { "start_date" => "2013-05-16" } }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # ContractsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  helper_objects
 
   describe "GET index" do
-    it "assigns all contracts as @contracts" do
-      contract = Contract.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:contracts).should eq([contract])
+
+    context "logged in as system admin" do
+
+      before :each do
+        sign_in sameer
+      end
+
+      it "assigns all the contracts" do
+        get :index
+        assigns[:contracts].count.should == 5
+      end
+    end
+
+    context "logged in as normal employee" do
+      before :each do
+        sign_in peter
+      end
+
+      it "just assigns the contacts which belongs to him"
     end
   end
-
+=begin
   describe "GET show" do
     it "assigns the requested contract as @contract" do
       contract = Contract.create! valid_attributes
@@ -138,5 +144,5 @@ describe ContractsController do
       response.should redirect_to(contracts_url)
     end
   end
-
+=end
 end

@@ -80,10 +80,20 @@ describe EmployeesController do
   end
 
   describe "DELETE destroy" do
-    let(:request) { delete :destroy, id: allen.id }
-    let(:page_behavior) { redirect_to employees_path }
+    let(:request) { xhr :delete, :destroy, id: allen.id }
+    let(:page_behavior) { render_template 'common_utils/destroy' }
     let(:database_performs) { Employee.where(id: allen.id).first.should be_nil }
     it_should_behave_like "access by the admin"
-    it_should_behave_like "denied by the normal employee"
+    # it_should_behave_like "denied by the normal employee"
+    context "logged in as normal employee" do
+      before :each do
+        sign_in peter
+      end
+
+      it "redirects to root_path" do
+        xhr :delete, :destroy, id: allen.id
+        response.body.should include("window.location")
+      end
+    end
   end
 end
