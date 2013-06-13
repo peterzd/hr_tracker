@@ -51,6 +51,7 @@ GEM
     coffee-script-source (1.6.2)
     commonjs (0.2.6)
     daemons (1.1.9)
+    database_cleaner (1.0.1)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -186,6 +187,7 @@ DEPENDENCIES
   cancan (~> 1.6.9)
   capybara
   coffee-rails (~> 3.2.1)
+  database_cleaner
   devise (~> 2.2.3)
   factory_girl_rails (~> 4.2.0)
   faker (~> 1.1.2)

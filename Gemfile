@@ -28,6 +28,7 @@ group :development, :test do
   gem 'ZenTest'
   gem 'autotest-rails'
   gem 'spork-rails'
+  gem 'database_cleaner'
 end
 
 gem 'jquery-rails'
