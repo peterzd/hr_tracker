@@ -36,7 +36,7 @@
           %ul{ class: 'dropdown-menu', role: 'menu', "aria-labelledby" => "dropdownMenu"}
             %li= link_to (content_tag(:i, '', class: 'icon-search') + "Show" ).html_safe, employee, { tabindex: '-1' }
             %li= link_to (content_tag(:i, '', class: 'icon-edit') + 'Edit' ).html_safe, edit_employee_path(employee), { tabindex: "-1" }
-            %li= link_to (content_tag(:i, '', class: 'icon-trash') + 'Destroy' ).html_safe, employee, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}, remote: true }
+            %li= link_to (content_tag(:i, '', class: 'icon-trash') + 'Destroy').html_safe, employee, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}, remote: true }
       - if can? :read, Bonus
         %td= link_to 'Bonuses', bonuses_path(employee.nickname)
       - elsif can? :manage, employee
