@@ -8,6 +8,7 @@ describe ContractsController do
     context "logged in as system admin" do
 
       before :each do
+        [contract_sameer, contract_peter, contract_peter_2, contract_allen, contract_andy].each(&:save)
         sign_in sameer
       end
 
