@@ -3,7 +3,7 @@ class Employee < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -14,6 +14,33 @@ class Employee < ActiveRecord::Base
 
   default_scope order :id
   scope :current_employees, where(current_employee: true)
+
+  class << self
+    def high_priority
+      employees_with_expired.select { |employee, days| days < 50 }
+    end
+
+    def medium_priority
+      employees_with_expired.select { |employee, days| (days >= 50) && (days < 90) }
+    end
+
+    def low_priority
+      employees_with_expired.select { |employee, days| days >= 90 }
+    end
+
+    private
+    def employees_with_expired
+      expired_employees = {}
+      Employee.all.each do |e|
+        contract = e.contracts.last
+        unless contract.nil?
+          expired_employees[e] = (contract.end_date - Date.today).to_i
+        end
+      end
+      expired_employees
+    end
+  end
+
 
   def to_s
     nickname
