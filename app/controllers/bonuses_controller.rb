@@ -9,11 +9,16 @@ class BonusesController < ApplicationController
     authorize! :read, @bonuses
   end
 
+  # def new
+  #   employee = Employee.where(nickname: params[:nickname].strip).first
+  #   @bonus = employee.bonuses.build
+  #   add_breadcrumb 'bonuses', bonuses_path
+  #   add_breadcrumb 'new'
+  # end
+
   def new
     employee = Employee.where(nickname: params[:nickname].strip).first
     @bonus = employee.bonuses.build
-    add_breadcrumb 'bonuses', bonuses_path
-    add_breadcrumb 'new'
   end
 
   def create
