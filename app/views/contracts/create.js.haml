@@ -1,6 +1,6 @@
 :plain
   $("form[id='new_contract']").fadeOut("slow");
   $(".table").empty().html("#{j(render partial: 'list_table')}");
-  $(".masthead").append("#{j(render partial: 'shared/message')}");
+  $("#message").html("#{j(render partial: 'shared/message')}");
   setTimeout(callback, 4000);
 

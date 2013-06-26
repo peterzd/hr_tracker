@@ -1,5 +1,6 @@
 - if employee_signed_in?
-  %li= link_to "#{current_employee.nickname}", employee_path(current_employee)
+  -# %li= link_to "#{current_employee.nickname}", employee_path(current_employee)
+  %li= link_to "Profile", employee_path(current_employee)
 - else
   %li= link_to 'Sign in', new_employee_session_path
   %li= link_to 'Sign up', new_employee_registration_path

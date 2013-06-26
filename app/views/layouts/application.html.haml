@@ -8,12 +8,7 @@
     = csrf_meta_tags
   %body
     .container-narrow
-      .masthead
-        %ul.nav.nav-pills.pull-right
-          = render 'shared/session'
-        %h3.nav.muted= link_to "HR Tracker", root_path
-        %hr
-      = render 'shared/message'
+      = render 'shared/header'
 
       = render_breadcrumbs
 
