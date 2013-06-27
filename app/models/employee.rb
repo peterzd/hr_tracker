@@ -16,6 +16,7 @@ class Employee < ActiveRecord::Base
   scope :current_employees, where(current_employee: true)
 
   class << self
+    # returns the hash of [employee, days]
     def high_priority
       employees_with_expired.select { |employee, days| days < 50 }
     end

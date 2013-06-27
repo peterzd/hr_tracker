@@ -1,0 +1,47 @@
+#table-head {
+  height: 50px;
+  padding: auto 0;
+
+  h1 {
+    float: left;
+    line-height: 50px;
+    margin: auto 0;
+  }
+
+  form {
+    line-height: 50px;
+    margin: auto 0;
+  }
+}
+
+@mixin priority-style { 
+  float: left;
+  // width: 33%;
+  height: 500px;
+  display: inline-block;
+}
+
+.priorities {
+  width: 33%;
+}
+.asdf {
+  padding-left: 3px;
+}
+
+#priority-employees {
+  height: 500px;
+  background: gray;
+
+  #high {
+    @include priority-style;
+    background: red;
+  }
+  #medium {
+    @include priority-style;
+    background: orange;
+  }
+  #low {
+    @include priority-style;
+    background: green;
+  }
+}
