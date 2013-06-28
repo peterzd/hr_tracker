@@ -7,7 +7,6 @@ class BonusesController < ApplicationController
     add_breadcrumb 'bonuses'
     @employee = Employee.where(nickname: params[:nickname].strip).first
     @bonuses = @employee.bonuses
-    # authorize! :read, @bonuses
   end
 
   def new
@@ -54,6 +53,6 @@ class BonusesController < ApplicationController
   private
   def authorize_employee
     @employee = Employee.where(nickname: params[:nickname].strip).first
-    authorize! :manage, @employee
+    authorize! :show, @employee
   end
 end

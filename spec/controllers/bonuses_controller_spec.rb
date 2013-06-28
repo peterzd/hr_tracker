@@ -10,7 +10,6 @@ shared_examples "logged in as system admin" do |example_title|
   it example_title do
     assertion
   end
-
 end
 
 
@@ -20,13 +19,23 @@ describe BonusesController do
   describe "GET 'index'" do
 
     context "logged in as system admin" do
-      let(:request) { get :index, nickname: sameer.nickname }
-      let(:assertion) { assigns[:bonuses].count.should == sameer.bonuses.count }
-      it_should_behave_like "logged in as system admin", "lists all the bonuses of my self"
+      before :each do
+        sign_in sameer
+        sameer.bonuses << create_list(:bonus, 7)
+      end
 
-      let(:request) { get :index, nickname: peter.nickname }
-      let(:assertion) { response.should be_success }
-      it_should_behave_like "logged in as system admin", "can access others bonuses"
+      it "lists all the bonuses of my-self" do
+        get :index, nickname: 'sameer'
+        assigns[:bonuses].count.should == sameer.bonuses.count
+      end
+
+      # let(:request) { get :index, nickname: sameer.nickname }
+      # let(:assertion) { assigns[:bonuses].count.should == sameer.bonuses.count }
+      # it_should_behave_like "logged in as system admin", "lists all the bonuses of my self"
+
+      # let(:request) { get :index, nickname: peter.nickname }
+      # let(:assertion) { response.should be_success }
+      # it_should_behave_like "logged in as system admin", "can access others bonuses"
 
     end
 
