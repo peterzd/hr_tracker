@@ -1,5 +1,5 @@
 class ContractsController < ApplicationController
-  authorize_resource
+  load_and_authorize_resource
 
   add_breadcrumb 'home', :home_index_path
 
