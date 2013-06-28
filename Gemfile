@@ -28,6 +28,9 @@ group :development, :test do
   gem 'ZenTest'
   gem 'autotest-rails'
   gem 'spork-rails'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'launchy'
 end
 
 gem 'jquery-rails'

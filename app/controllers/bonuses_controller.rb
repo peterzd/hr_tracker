@@ -1,12 +1,12 @@
 class BonusesController < ApplicationController
-  load_and_authorize_resource
+  before_filter :authorize_employee
+  load_and_authorize_resource through: :current_employee
   add_breadcrumb 'home', :home_index_path
 
   def index
     add_breadcrumb 'bonuses'
     @employee = Employee.where(nickname: params[:nickname].strip).first
     @bonuses = @employee.bonuses
-    authorize! :read, @bonuses
   end
 
   # def new
@@ -55,4 +55,9 @@ class BonusesController < ApplicationController
     redirect_to bonuses_path
   end
 
+  private
+  def authorize_employee
+    @employee = Employee.where(nickname: params[:nickname].strip).first
+    authorize! :show, @employee
+  end
 end

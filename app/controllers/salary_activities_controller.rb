@@ -1,6 +1,8 @@
 class SalaryActivitiesController < ApplicationController
-  authorize_resource
-  load_resource :contract, except: [:create, :update]
+  load_and_authorize_resource :contract, except: [:create, :update]
+  load_and_authorize_resource :salary_activity, through: :contract
+  # authorize_resource
+  # load_resource :contract, except: [:create, :update]
 
   add_breadcrumb "home", :home_index_path
 

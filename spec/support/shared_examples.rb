@@ -30,7 +30,6 @@ shared_examples "access by the admin" do |variable|
     request
   end
 
-  # it_should_behave_like "successful render page", target_page
   it_should_behave_like "assigns variable", variable
   it_should_behave_like "page behaves"
   it_should_behave_like "database performs"
