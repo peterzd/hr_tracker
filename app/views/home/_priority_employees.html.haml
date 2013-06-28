@@ -1,0 +1,13 @@
+- emp_days.each_pair do |employee, days|
+  .employee-days
+    .employee.inline
+      .btn-group
+        = link_to employee.nickname, employee_path(employee), class: "btn #{btn_type}"
+        %button{ class: "btn dropdown-toggle #{btn_type}", "data-toggle" => "dropdown"}
+          %span.caret
+        %ul.dropdown-menu
+          %li good day
+          %li bad day
+    .days.inline
+      = "#{ days.to_i } days"
+

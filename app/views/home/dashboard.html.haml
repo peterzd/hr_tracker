@@ -1,4 +1,23 @@
-%h1 Home#dashboard
-= link_to "Contracts", contracts_path
+#table-head
+  %h1 Dashboard
+  = form_tag "#", method: 'get', class: 'navbar-search pull-right' do
+    = text_field_tag "filter", "", class: 'search-query', placeholder: 'Filter'
+
 %br
-= render 'employees/table'
+-# = render 'employees/table'
+#priority-employees
+  .priorities.pull-left
+    #high
+      %h2 Within 50 days
+      = render 'priority_employees', emp_days: @high_employees, btn_type: "btn-danger"
+  .priorities.pull-left
+    #medium
+      %h2 Within 90 days
+      = render 'priority_employees', emp_days: @medium_employees, btn_type: "btn-warning"
+  .priorities.pull-left
+    #low
+      %h2 More than 90 days
+      = render 'priority_employees', emp_days: @low_employees, btn_type: "btn-primary"
+= link_to 'List all employees', ajax_list_all_employees_path, remote: true, id: 'link_list'
+%br
+= link_to 'New Employee', new_employee_path

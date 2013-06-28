@@ -6,18 +6,20 @@
   .control-group
     = f.label :distribution_date, class: 'control-label'
     .controls
-      #datepicker.input-append
-        = f.text_field :distribution_date, { "data-format" => "yyyy-MM-dd" }
+      #datepicker.input-append.date{ "data-date-format" => "yyyy-mm-dd" }
+        = f.text_field :distribution_date, { "data-format" => "yyyy-MM-dd", readonly: true }
         %span.add-on
-          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar', class: 'icon-calendar' }
+          %i{ class: 'icon-remove'}
+        %span.add-on
+          %i{ class: 'icon-time'}
 
   .control-group
     = f.label :comment, class: 'control-label'
     .controls
-      = f.text_area :comment
+      = f.text_area :comment, size: "8*5"
   .control-group
     .controls
-      = f.submit "Save", class: 'btn'
-      = link_to 'Back', bonuses_path, class: 'btn'
+      = f.submit "Save", class: "btn"
+      = link_to 'Back', bonuses_path, class: 'bwtn'
 
 

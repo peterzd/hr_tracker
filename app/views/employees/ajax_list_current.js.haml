@@ -1,0 +1,7 @@
+:plain
+  $(".table").empty().html("#{j(render partial: 'table')}");
+  $("#link_list").text("List all employees");
+  $("#link_list").attr("href", "#{ j(ajax_list_all_employees_path) }")
+
+
+

@@ -2,12 +2,40 @@
   margin-left: auto;
   margin-right: auto;
   width: $width_num;
+}
+
+.masthead {
+  height: 80px;
+
+  #user_session {
+    line-height: 80px;
+  }
+
+  #message {
+    float: right;
+    text-align: center;
+    width: 60%;
+    margin-right: 15px;
+  }
+  h3.nav.muted {
+    float: left;
+
+  }
+
+  hr {
+    clear: both;
+  }
 
 }
+
 .footer{
   @include align-center;
 }
 
 .sign_in_links {
   @include align-center;
+}
+
+i {
+  float: right;
 }

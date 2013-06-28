@@ -7,6 +7,14 @@ class EmployeesController < ApplicationController
     @employees = Employee.current_employees
   end
 
+  def ajax_list_all
+    @employees = Employee.all
+  end
+
+  def ajax_list_current
+    @employees = Employee.current_employees
+  end
+
   def show
     add_breadcrumb "employees", employees_path
     add_breadcrumb "#{current_employee.nickname}", employee_path(current_employee)
@@ -57,10 +65,8 @@ class EmployeesController < ApplicationController
   def destroy
     @employee = Employee.find(params[:id])
     @employee.destroy
+    @employees = Employee.current_employees
 
-    respond_to do |format|
-      format.html { redirect_to employees_url }
-      format.json { head :no_content }
-    end
+    render 'common_utils/destroy', locals: { table_name: 'table' }
   end
 end

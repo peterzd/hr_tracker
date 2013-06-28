@@ -31,12 +31,16 @@
       %td= employee.is_system_admin
       -# %td= employee.is_admin
       %td
-        .dropdown
-          = link_to "Operations", "#", { class: 'dropdown-toggle', "data-toggle" => "dropdown" }
-          %ul{ class: 'dropdown-menu', role: 'menu', "aria-labelledby" => "dropdownMenu"}
-            %li= link_to "Show", employee, { tabindex: '-1' }
-            %li= (link_to 'Edit', edit_employee_path(employee), { tabindex: "-1" })
-            %li= (link_to 'Destroy', employee, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}})
+        %ul.inline
+          %li= link_to (content_tag(:i, '', class: 'icon-search') ).html_safe, employee, { tabindex: '-1' }
+          %li= link_to (content_tag(:i, '', class: 'icon-edit') ).html_safe, edit_employee_path(employee), { tabindex: "-1" }
+          %li= link_to (content_tag(:i, '', class: 'icon-trash')).html_safe, employee, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}, remote: true }
+        -# .dropdown
+        -#   = link_to "Operations", "#", { class: 'dropdown-toggle', "data-toggle" => "dropdown" }
+        -#   %ul{ class: 'dropdown-menu', role: 'menu', "aria-labelledby" => "dropdownMenu"}
+        -#     %li= link_to (content_tag(:i, '', class: 'icon-search') + "Show" ).html_safe, employee, { tabindex: '-1' }
+        -#     %li= link_to (content_tag(:i, '', class: 'icon-edit') + 'Edit' ).html_safe, edit_employee_path(employee), { tabindex: "-1" }
+        -#     %li= link_to (content_tag(:i, '', class: 'icon-trash') + 'Destroy').html_safe, employee, { tabindex: "-1", :method => :delete, data: { confirm: 'Are you sure?'}, remote: true }
       - if can? :read, Bonus
         %td= link_to 'Bonuses', bonuses_path(employee.nickname)
       - elsif can? :manage, employee
@@ -44,5 +48,3 @@
 
 %br
 
-= link_to 'List all employees', "#"
-= link_to 'New Employee', new_employee_path

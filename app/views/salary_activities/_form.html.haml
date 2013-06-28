@@ -21,21 +21,22 @@
   .control-group
     = f.label :discussion_date, class: 'control-label'
     .controls
-      #datepicker_discussion_date.input-append
-        = f.text_field :discussion_date, { "data-format" => "yyyy-MM-dd" }
+      #datepicker_discussion_date.input-append.date{ "data-date-format" => "yyyy-mm-dd" }
+        = f.text_field :discussion_date, { "data-format" => "yyyy-MM-dd", readonly: true }
         %span.add-on
-          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
-    -# = f.date_select :discusstion_date
+          %i{ class: "icon-remove" }
+        %span.add-on
+          %i{ class: "icon-time" }
   .control-group
     = f.label :effective_date, class: 'control-label'
     .controls
-      #datepicker_discussion_date.input-append
-        = f.text_field :effective_date, { "data-format" => "yyyy-MM-dd" }
+      #datepicker_discussion_date.input-append.date{ "data-date-format" => "yyyy-mm-dd" }
+        = f.text_field :effective_date, { "data-format" => "yyyy-MM-dd", readonly: true }
         %span.add-on
-          %i{ "data-time-icon" => 'icon-time', "data-date-icon" => 'icon-calendar' }
-      -# = f.date_select :effective_date
+          %i{ class: "icon-remove" }
+        %span.add-on
+          %i{ class: "icon-time" }
   .control-group
-    -# = f.label :discussion_note, class: 'control-label'
     = render 'discussion_form'
   .control-group
     .controls

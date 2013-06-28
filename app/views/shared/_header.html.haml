@@ -1,0 +1,20 @@
+.masthead
+  #user_session
+    %ul.nav.nav-pills.pull-right
+      %li.dropdown
+        = link_to ("Todo" + content_tag(:b, '', class: 'caret')).html_safe, "#", class: 'dropdown-toggle', "data-toggle" => "dropdown"
+        %ul{ class: 'dropdown-menu' }
+          = render 'shared/operations'
+
+      %li.dropdown
+        = link_to ("#{current_employee.nickname}" + content_tag(:b, '', class: 'caret')).html_safe, "#", class: 'dropdown-toggle', "data-toggle" => "dropdown"
+        %ul{ class: 'dropdown-menu' }
+          = render 'shared/session'
+
+  #message
+    = render 'shared/message'
+
+  %div
+    %h3.nav.muted
+      = link_to "HR Tracker", root_path
+  %hr

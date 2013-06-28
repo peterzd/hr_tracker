@@ -1,0 +1,65 @@
+#table-head {
+  height: 50px;
+  padding: auto 0;
+
+  h1 {
+    float: left;
+    line-height: 50px;
+    margin: auto 0;
+  }
+
+  form {
+    line-height: 50px;
+    margin: auto 0;
+  }
+}
+
+@mixin priority-style {
+  height: 500px;
+  padding: 5px 10px;
+}
+
+.employee-days {
+  text-align: justify;
+}
+
+.employee-days:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.days {
+  vertical-align: baseline;
+}
+
+.priorities {
+  width: 33.3%;
+}
+
+.inline {
+  display: inline-block;
+}
+
+#priority-employees {
+  height: 500px;
+
+  #high {
+    @include priority-style;
+    background: rgb(242, 222, 222);
+    margin-right: 5px;
+  }
+  #medium {
+    @include priority-style;
+    background: rgb(251,238,213);
+    margin: 0 5px;
+  }
+  #low {
+    @include priority-style;
+    background: rgb(223, 240, 216);
+    margin-left: 5px;
+  }
+}

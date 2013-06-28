@@ -16,6 +16,12 @@ class SalaryActivitiesController < ApplicationController
     add_breadcrumb "#{@salary_activity.id}"
   end
 
+  def ajax_new
+    @contract = Contract.where(id: params[:contract_id]).first
+    @salary_activity = @contract.salary_activities.build()
+    @discussion = Discussion.new
+  end
+
   def new
     @contract = Contract.where(id: params[:contract_id]).first
     last_activity = SalaryActivity.last
@@ -81,8 +87,9 @@ class SalaryActivitiesController < ApplicationController
   def destroy
     @salary_activity = SalaryActivity.find(params[:id])
     @salary_activity.destroy
-
     flash[:success] = ' Destroyed the salary activity'
-    redirect_to contract_salary_activities_path(@contract)
+    @salary_activities = @contract.salary_activities.order :effective_date
+
+    render 'common_utils/destroy', locals: { table_name: 'table' }
   end
 end
