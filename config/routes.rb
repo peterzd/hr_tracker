@@ -34,4 +34,6 @@ HrTracker::Application.routes.draw do
     resources :bonuses, controller: :bonuses
   end
 
+  get '/:nickname/contracts', to: 'Contracts#emp_contracts', as: :emp_contracts
+
 end

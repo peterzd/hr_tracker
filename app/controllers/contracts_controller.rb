@@ -6,7 +6,6 @@ class ContractsController < ApplicationController
   def index
     add_breadcrumb "contracts"
     @contracts = (can? :manage, Contract) ? (Contract.order :updated_at) : (Contract.current_employee_contracts current_employee)
-
   end
 
   def show
@@ -60,6 +59,12 @@ class ContractsController < ApplicationController
     @contracts = (can? :manage, Contract) ? (Contract.order :updated_at) : (Contract.current_employee_contracts current_employee)
 
     render 'common_utils/destroy', locals: { table_name: 'list_table' }
+  end
+
+  def emp_contracts
+    @employee = Employee.where(nickname: params[:nickname].strip).first
+    @contracts = Contract.emp_contracts @employee
+    render action: 'index'
   end
 
   private
