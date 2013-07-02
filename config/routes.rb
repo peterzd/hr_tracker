@@ -18,6 +18,7 @@ HrTracker::Application.routes.draw do
   namespace 'home' do
     get "dashboard"
     get "index"
+    get "new_contract_modal"
   end
 
   root :to => 'home#index'
@@ -34,6 +35,6 @@ HrTracker::Application.routes.draw do
     resources :bonuses, controller: :bonuses
   end
 
-  get '/:nickname/contracts', to: 'Contracts#emp_contracts', as: :emp_contracts
+  get '/:nickname/contracts', to: 'Contracts#emp_contracts', nickname: /[a-z]+/, as: :emp_contracts
 
 end

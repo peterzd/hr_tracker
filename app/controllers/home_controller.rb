@@ -14,4 +14,8 @@ class HomeController < ApplicationController
     @medium_employees = Employee.medium_priority
     @low_employees = Employee.low_priority
   end
+
+  def new_contract_modal
+    @contract = Contract.new
+  end
 end

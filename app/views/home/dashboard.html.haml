@@ -1,10 +1,18 @@
+#contract_modal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3#myModalLabel Create new Contract
+  .modal-body
+  .modal-footer
+    %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
+    %button.btn.btn-primary Save changes
+
 #table-head
   %h1 Dashboard
   = form_tag "#", method: 'get', class: 'navbar-search pull-right' do
     = text_field_tag "filter", "", class: 'search-query', placeholder: 'Filter'
 
 %br
--# = render 'employees/table'
 #priority-employees
   .priorities.pull-left
     #high
@@ -20,4 +28,5 @@
       = render 'priority_employees', emp_days: @low_employees, btn_type: "btn-primary"
 = link_to 'List all employees', ajax_list_all_employees_path, remote: true, id: 'link_list'
 %br
+
 = link_to 'New Employee', new_employee_path

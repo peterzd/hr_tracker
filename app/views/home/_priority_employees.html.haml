@@ -6,8 +6,7 @@
         %button{ class: "btn dropdown-toggle #{btn_type}", "data-toggle" => "dropdown"}
           %span.caret
         %ul.dropdown-menu
-          %li good day
-          %li bad day
+          = render 'emp_actions'
     .days.inline
       = "#{ days.to_i } days"
 

@@ -1,5 +1,5 @@
 class ContractsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:create]
 
   add_breadcrumb 'home', :home_index_path
 
