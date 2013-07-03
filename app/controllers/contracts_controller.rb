@@ -30,13 +30,26 @@ class ContractsController < ApplicationController
     add_breadcrumb "#{@contract.id}"
   end
 
+  # ajax request. Used for two scenarios:
+  # 1. request from dashboard.
+  # 2. request from Contracts.
   def create
     @contract = Contract.new(constructed_contract params[:contract])
+    from = params[:from].strip
 
+    # set a flag to distinguish where the request comes from
     if @contract.save
       flash[:success] = ' Created a new contract!'
       @contracts = (can? :manage, Contract) ? (Contract.order :updated_at) : (Contract.current_employee_contracts current_employee)
-
+      # add switch case
+      case from
+      when 'dashboard'
+        render "dashboard_create"
+      when 'contract'
+        render "create"
+      else
+        render "create"
+      end
     else
       render action: "new"
     end
