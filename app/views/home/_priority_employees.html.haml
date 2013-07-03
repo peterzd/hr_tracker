@@ -6,7 +6,7 @@
         %button{ class: "btn dropdown-toggle #{btn_type}", "data-toggle" => "dropdown"}
           %span.caret
         %ul.dropdown-menu
-          = render 'emp_actions'
+          = render 'emp_actions', employee: employee
     .days.inline
       = "#{ days.to_i } days"
 

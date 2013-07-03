@@ -31,7 +31,7 @@
   .control-group
     = f.label :employee, class: 'control-label'
     .controls
-      = collection_select :contract, :employee_id, Employee.all, :id, :email
+      = collection_select :contract, :employee_id, Employee.all, :id, :email, { selected: selected_emp }
   .control-group
     .controls
       = f.submit 'Save', class: 'btn'

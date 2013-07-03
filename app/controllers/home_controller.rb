@@ -17,5 +17,6 @@ class HomeController < ApplicationController
 
   def new_contract_modal
     @contract = Contract.new
+    @selected_emp_id = params[:employee_id]
   end
 end

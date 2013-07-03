@@ -1,5 +1,5 @@
 %li
-  = link_to "New Contract", home_new_contract_modal_path, role: 'button', class: 'btn', remote: true
+  = link_to "New Contract", home_new_contract_modal_path(employee_id: employee.id), role: 'button', class: 'btn', remote: true
 %li
   = link_to "View Bonuses", "#"
 %li
