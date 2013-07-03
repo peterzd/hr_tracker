@@ -1,5 +1,9 @@
 :plain
-  $("#contract-modal").append("#{j(render partial: 'contracts/new')}");
+  $("#modal-body").empty();
+  $("#modal-body").append("#{j(render partial: 'contracts/new')}");
   active_datepicker();
-  $("#contract-modal").css({"z-index": 1, "opacity": 1, "display": "block"});
+  $(".modalDialog").css({"opacity": 1, "pointer-events": "auto"});
+  $(".closeModal").on("click", function(){
+    $(".modalDialog").css({"opacity": 0, "pointer-events": "none"});
+  });
 
