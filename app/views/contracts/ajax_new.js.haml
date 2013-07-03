@@ -1,5 +1,5 @@
 :plain
-  $(".table").after("#{j(render partial: 'new')}");
+  $(".table").after("#{j(render partial: 'new', locals: { selected_emp: 1, from: @from})}");
   active_datepicker();
 
 

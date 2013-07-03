@@ -14,14 +14,15 @@ class ContractsController < ApplicationController
     add_breadcrumb "#{@contract.id}"
   end
 
-  def new
-    @contract = Contract.new
-    add_breadcrumb "contracts", contracts_path
-    add_breadcrumb "new"
-  end
+  # def new
+  #   @contract = Contract.new
+  #   add_breadcrumb "contracts", contracts_path
+  #   add_breadcrumb "new"
+  # end
 
   def ajax_new
     @contract = Contract.new
+    @from = 'contract'
   end
 
   def edit
@@ -41,7 +42,6 @@ class ContractsController < ApplicationController
     if @contract.save
       flash[:success] = ' Created a new contract!'
       @contracts = (can? :manage, Contract) ? (Contract.order :updated_at) : (Contract.current_employee_contracts current_employee)
-      # add switch case
       case from
       when 'dashboard'
         render "dashboard_create"
