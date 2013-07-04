@@ -1,0 +1,7 @@
+:plain
+  $("#bonuses-modal .modal-body").empty();
+  $("#bonuses-modal .modal-body").append("#{j(render partial: 'table')}");
+  $("#bonuses-modal").removeClass('hideModal').addClass('showModal')
+  $(".closeModal").on("click", function(){
+    $(".modalDialog").removeClass('showModal').addClass('hideModal')
+  });

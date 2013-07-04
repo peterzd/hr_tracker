@@ -9,13 +9,6 @@ class BonusesController < ApplicationController
     @bonuses = @employee.bonuses
   end
 
-  # def new
-  #   employee = Employee.where(nickname: params[:nickname].strip).first
-  #   @bonus = employee.bonuses.build
-  #   add_breadcrumb 'bonuses', bonuses_path
-  #   add_breadcrumb 'new'
-  # end
-
   def new
     employee = Employee.where(nickname: params[:nickname].strip).first
     @bonus = employee.bonuses.build
@@ -53,6 +46,11 @@ class BonusesController < ApplicationController
     @bonus.destroy
 
     redirect_to bonuses_path
+  end
+
+  def emp_bonuses
+    @bonuses = @employee.bonuses
+    @operations = false
   end
 
   private

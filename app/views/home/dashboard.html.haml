@@ -1,9 +1,12 @@
 = content_for :modal do
-  #contract-modal.modalDialog
+  #contract-modal.modalDialog.hideModal
     %div
       = link_to "X", "#close", class: 'closeModal', title: "Close"
-      #modal-body
-
+      .modal-body
+  #bonuses-modal.modalDialog.hideModal
+    %div
+      = link_to "X", "#close", class: 'closeModal', title: "Close"
+      .modal-body
 
 #table-head
   %h1 Dashboard

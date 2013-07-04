@@ -1,8 +1,8 @@
 :plain
-  $("#modal-body").empty();
-  $("#modal-body").append("#{j(render partial: 'contracts/new', locals: { selected_emp: @selected_emp_id, from: @from} )}");
+  $("#contract-modal .modal-body").empty();
+  $("#contract-modal .modal-body").append("#{j(render partial: 'contracts/new', locals: { selected_emp: @selected_emp_id, from: @from} )}");
   active_datepicker();
-  $(".modalDialog").css({"opacity": 1, "pointer-events": "auto"});
+  $("#contract-modal").removeClass('hideModal').addClass('showModal')
   $(".closeModal").on("click", function(){
-    $(".modalDialog").css({"opacity": 0, "pointer-events": "none"});
+    $(".modalDialog").removeClass('showModal').addClass('hideModal')
   });

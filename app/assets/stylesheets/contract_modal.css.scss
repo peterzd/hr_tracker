@@ -10,14 +10,10 @@
   left: 0;
   background: rgba(0,0,0,0.8);
   z-index: 9999;
-  opacity: 0;
 
   -webkit-transition: opacity 400ms ease-in;
   -moz-transition: opacity 400ms ease-in;
   transition: opacity 400ms ease-in;
-
-  pointer-events: none;
-
 }
 
 .modalDialog:target {
@@ -60,4 +56,14 @@
 
 .closeModal:hover {
   background: #00d9ff;
+}
+
+.hideModal {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.showModal {
+  opacity: 1;
+  pointer-events: auto;
 }
