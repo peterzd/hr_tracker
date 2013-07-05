@@ -11,6 +11,8 @@
     .container-narrow
       = render 'shared/header'
 
+      = good if defined? good
+
       = render_breadcrumbs
 
       = yield

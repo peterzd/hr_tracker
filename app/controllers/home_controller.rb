@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  # TODO : pass variable to layout that not show the breadcrumbs
 
   def index
     if employee_signed_in?
@@ -13,6 +14,7 @@ class HomeController < ApplicationController
     @high_employees = Employee.high_priority
     @medium_employees = Employee.medium_priority
     @low_employees = Employee.low_priority
+    render layout: 'application', locals: { no_breadcrumbs: true }
   end
 
   def new_contract_modal
