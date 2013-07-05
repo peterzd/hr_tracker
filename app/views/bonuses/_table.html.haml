@@ -1,10 +1,10 @@
-- operations = @operations.nil? ? true : @operations
+-# - operations = @operations.nil? ? true : @operations
 %table.table.table-hover.table-bordered.table-striped
   %tr
     %th Bonus Amount
     %th Distribution Date
     %th Comment
-    - if (( can? :manage, Bonus ) && operations)
+    - if can_operate?
       %th
 
   - @bonuses.each do |bonus|
@@ -12,7 +12,7 @@
       %td= bonus.amount
       %td= bonus.distribution_date
       %td= bonus.comment
-      - if(( can? :manage, Bonus ) && operations)
+      - if can_operate?
         %td
           %ul.inline
             %li= link_to (content_tag(:i, '', class: 'icon-edit') ).html_safe, edit_bonus_path(@employee.nickname, bonus), { tabindex: "-1" }
