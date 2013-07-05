@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-  # TODO : pass variable to layout that not show the breadcrumbs
 
   def index
     if employee_signed_in?
