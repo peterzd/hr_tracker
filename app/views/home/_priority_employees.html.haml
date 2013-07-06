@@ -1,5 +1,6 @@
 - emp_days.each_pair do |employee, days|
   .employee-days
+    .nickname-hidden= employee.nickname
     .employee.inline
       .btn-group
         = link_to employee.nickname, emp_contracts_path(employee.nickname), class: "btn #{btn_type}"
