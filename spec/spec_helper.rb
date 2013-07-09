@@ -1,19 +1,19 @@
 require 'rubygems'
-require 'spork'
-#uncomment the following line to use spork with the debugger
-#require 'spork/ext/ruby-debug'
+# require 'spork'
+# #uncomment the following line to use spork with the debugger
+# #require 'spork/ext/ruby-debug'
 
-Spork.prefork do
-  # Loading more in this block will cause your tests to run faster. However,
-  # if you change any configuration or code from libraries loaded here, you'll
-  # need to restart spork for it take effect.
+# Spork.prefork do
+#   # Loading more in this block will cause your tests to run faster. However,
+#   # if you change any configuration or code from libraries loaded here, you'll
+#   # need to restart spork for it take effect.
 
-end
+# end
 
-Spork.each_run do
-  # This code will be run each time you run your specs.
+# Spork.each_run do
+#   # This code will be run each time you run your specs.
 
-end
+# end
 
 # --- Instructions ---
 # Sort the contents of this file into a Spork.prefork and a Spork.each_run
@@ -55,6 +55,7 @@ require 'rspec/autorun'
 
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'database_cleaner'
 include Warden::Test::Helpers
 Warden.test_mode!
 
@@ -94,4 +95,16 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
+
+  # about database cleaner
+  # DatabaseCleaner.strategy = :deletion
+  # config.before(:suite) do
+  #   DatabaseCleaner.clean_with :deletion
+  # end
+  # config.before(:each) do
+  #   DatabaseCleaner.start
+  # end
+  # config.after(:each) do
+  #   DatabaseCleaner.clean
+  # end
 end
