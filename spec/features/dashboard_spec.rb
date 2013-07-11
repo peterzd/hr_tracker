@@ -147,5 +147,12 @@ feature "Dashboard" do
 		# verify the DB
 		peter.reload.should have(2).contracts
 		peter.contracts.last.should be_draft
+
+		# verify the UI, the days for peter is still 21
+		within('#high') do
+			find('div.days').should have_content '21 days'
+		end
+		
+
 	end
 end

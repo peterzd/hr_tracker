@@ -14,12 +14,6 @@ class ContractsController < ApplicationController
     add_breadcrumb "#{@contract.id}"
   end
 
-  # def new
-  #   @contract = Contract.new
-  #   add_breadcrumb "contracts", contracts_path
-  #   add_breadcrumb "new"
-  # end
-
   def ajax_new
     @contract = Contract.new
     @from = 'contract'
