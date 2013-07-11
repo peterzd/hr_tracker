@@ -84,4 +84,47 @@ feature "Dashboard" do
 			expect(peter).to have(2).contracts
 		end
   end
+
+	scenario "shows the bonuses for the employee", js: true do
+		bonus_1 = create(:bonus, amount: 3000, distribution_date: Date.new(2011, 12, 30))
+		bonus_2 = create(:bonus, amount: 5000, distribution_date: Date.new(2012, 5, 28))
+		peter.bonuses << [bonus_1, bonus_2]
+		# click the 'View Bonuses' button
+		within("#high") { find('button.dropdown-toggle').click }
+		click_link('View Bonuses')
+
+		page.should have_css('table.table-striped')
+
+		# the table shold have 3 trs
+		within('table.table-striped') do
+			expect(all('tr').count).to eq 3
+		end
+
+		# dismiss the modal
+		click_link('Close')
+		page.find('table.table-striped').should_not be_visible
+	end
+
+	context "navigating on the top-right corner", js: true do
+		scenario 'go to employees page' do
+			within('#user_session') do
+				click_link 'Todo'
+				page.should have_content 'Employees'
+
+				click_link 'Employees'
+				current_path.should == employees_path
+			end
+		end
+
+		scenario 'go to contracts page' do
+			within '#user_session' do
+				click_link 'Todo'
+				page.should have_content 'Contracts'
+				click_link 'Contracts'
+				current_path.should == contracts_path
+			end
+		end
+
+	end
+
 end

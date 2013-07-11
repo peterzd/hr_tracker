@@ -27,7 +27,3 @@
     #low
       %h2 More than 90 days
       = render 'priority_employees', emp_days: @low_employees, btn_type: "btn-primary"
-= link_to 'List all employees', ajax_list_all_employees_path, remote: true, id: 'link_list'
-%br
-
-= link_to 'New Employee', new_employee_path

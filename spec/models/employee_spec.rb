@@ -6,4 +6,6 @@ describe Employee do
   it 'sameer is the system_admin' do
     sameer.is_system_admin.should be_true
   end
+
+	context "different priorities of employees"
 end
