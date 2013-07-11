@@ -124,7 +124,28 @@ feature "Dashboard" do
 				current_path.should == contracts_path
 			end
 		end
-
 	end
 
+	scenario "creating a new draft contract", js: true do
+
+		# show the new contract modal for peter
+		within("#high") { find('button.dropdown-toggle').click }
+		click_link('New Contract')
+		page.should have_css ('form#new_contract')
+
+		# fill in the data
+		page.first('i.icon-time').click
+		page.find('div.datetimepicker-days').first('td.day', text: '1').click
+		page.find('#contract_end_date').click
+		page.find('div.datetimepicker-days').all('td.day', text: '28').last.click
+		fill_in('contract[salary]', with: '55555')
+
+		# Save the contract as Draft
+		click_on 'Save as Draft'
+		page.should_not have_css ('form#new_contract')
+
+		# verify the DB
+		peter.reload.should have(2).contracts
+		peter.contracts.last.should be_draft
+	end
 end

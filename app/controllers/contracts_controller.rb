@@ -37,6 +37,7 @@ class ContractsController < ApplicationController
   def create
     @contract = Contract.new(constructed_contract params[:contract])
     from = params[:from].strip
+		@contract.draft = true if params[:commit] == 'Save as Draft'
 
     # set a flag to distinguish where the request comes from
     if @contract.save
