@@ -9,6 +9,7 @@ describe "Contracts" do
 
   before :each do
     login_admin
+    contract_peter
     visit contracts_path
   end
 

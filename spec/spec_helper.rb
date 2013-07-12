@@ -7,6 +7,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'database_cleaner'
 include Warden::Test::Helpers
 Warden.test_mode!
 
@@ -43,4 +44,19 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
+
+
+  DatabaseCleaner.strategy = :deletion
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with :deletion
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
