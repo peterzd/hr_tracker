@@ -1,6 +1,6 @@
 class BonusesController < ApplicationController
   before_filter :authorize_employee
-  load_and_authorize_resource through: :current_employee
+  load_and_authorize_resource through: :employee
   add_breadcrumb 'home', :home_index_path
 
   def index
@@ -10,26 +10,18 @@ class BonusesController < ApplicationController
   end
 
   def new
-    employee = Employee.where(nickname: params[:nickname].strip).first
-    @bonus = employee.bonuses.build
+    @bonus = @employee.bonuses.build
   end
 
   def create
-    employee = Employee.where(nickname: params[:nickname].strip).first
-    @bonus = employee.bonuses.build(params[:bonus])
-
-    if @bonus.save
-      redirect_to bonuses_path
-    end
-
+    @employee.bonuses.create! params[:bonus]
+    redirect_to bonuses_path
   end
 
   def edit
-    employee = Employee.where(nickname: params[:nickname].strip).first
     @action = { action: "update" }
     add_breadcrumb 'bonuses', bonuses_path
-    add_breadcrumb "#{employee.nickname}"
-
+    add_breadcrumb "#{@employee.nickname}"
   end
 
   def update

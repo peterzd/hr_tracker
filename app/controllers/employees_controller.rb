@@ -44,7 +44,6 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = Employee.new(params[:employee])
-
     if @employee.save
       redirect_to employees_path, notice: 'Employee was successfully created.'
     else

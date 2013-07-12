@@ -40,7 +40,5 @@ HrTracker::Application.routes.draw do
 
   end
 
-
   get '/:nickname/contracts', to: 'Contracts#emp_contracts', nickname: /[a-z]+/, as: :emp_contracts
-
 end

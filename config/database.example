@@ -4,6 +4,7 @@ common: &common
   pool: 5
   username: peterzd
   password:
+  min_messages: WARNING
 
 development:
   <<: *common
