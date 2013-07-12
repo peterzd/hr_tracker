@@ -12,14 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    logger.info "in application_controller, be called"
     flash[:error] = 'can not visit'
     respond_to do |format|
       format.html { redirect_to root_url, alert: exception.message }
       format.js do
-        render :js => "window.location = '#{root_path}'"
+        render js: "window.location = '#{root_path}'", status: 401
       end
     end
-
   end
 end
