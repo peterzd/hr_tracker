@@ -22,7 +22,7 @@ describe "Contracts" do
 
   describe "operations" do
     before :each do
-      first(:link, 'Operations').click
+      page.find_link('Operations').click
     end
 
     it "shows operations for choose" do
@@ -31,8 +31,9 @@ describe "Contracts" do
 
     context "Destroy" do
       it "removes the contract", js: true do
-        first(:link, 'Destroy').click
-        page.driver.browser.switch_to.alert.accept
+        page.execute_script 'window.confirm = function() { return true; }'
+        page.find_link('Destroy').click
+        # page.driver.browser.switch_to.alert.accept
         page.should have_content 'Listing contracts'
       end
     end
