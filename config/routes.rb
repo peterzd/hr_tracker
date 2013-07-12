@@ -33,5 +33,4 @@ HrTracker::Application.routes.draw do
   scope ":nickname" do
     resources :bonuses, controller: :bonuses
   end
-
 end
