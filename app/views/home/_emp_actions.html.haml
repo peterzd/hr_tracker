@@ -4,3 +4,5 @@
   = link_to "View Bonuses", emp_bonuses_bonuses_path(nickname: employee.nickname), role: 'button', class: 'btn', remote: true
 %li
   = link_to "Add Salary Activity", "#"
+%li
+  = link_to "Notes", employee_notes_path(employee), role: 'button', class: 'btn', remote: true

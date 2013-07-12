@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711092636) do
+ActiveRecord::Schema.define(:version => 20130712034827) do
 
   create_table "bonuses", :force => true do |t|
     t.float    "amount"
@@ -74,6 +74,18 @@ ActiveRecord::Schema.define(:version => 20130711092636) do
 
   add_index "employees", ["email"], :name => "index_employees_on_email", :unique => true
   add_index "employees", ["reset_password_token"], :name => "index_employees_on_reset_password_token", :unique => true
+
+  create_table "notes", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "employee_id"
+    t.integer  "creator_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "notes", ["creator_id"], :name => "index_notes_on_creator_id"
+  add_index "notes", ["employee_id"], :name => "index_notes_on_employee_id"
 
   create_table "salary_activities", :force => true do |t|
     t.float    "previous_salary"
