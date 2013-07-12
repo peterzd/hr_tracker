@@ -39,7 +39,6 @@ describe "Contracts" do
     context "Edit" do
       it "redirects to the edit page" do
         first(:link, 'Edit').click
-        get_via_redirect edit_contract_path(contract_sameer)
         page.should have_content 'Editing contract'
       end
     end

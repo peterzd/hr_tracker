@@ -16,6 +16,11 @@ end
 describe BonusesController do
   helper_objects
 
+  before :each do
+    Employee.delete_all
+    Bonus.delete_all
+  end
+
   describe "GET 'index'" do
 
     context "logged in as system admin" do
@@ -64,35 +69,31 @@ describe BonusesController do
       end
 
       it "creates a new empty bonus for my self" do
-        get :new, nickname: 'sameer'
+        get :new, nickname: 'sameer', format: :js
         assigns[:bonus].should be_new_record
       end
 
       it "creates a new empty bonus for other employee" do
-        get :new, nickname: peter.nickname
+        get :new, nickname: peter.nickname, format: :js
         assigns[:bonus].should be_new_record
       end
 
       it "renders the new page" do
-        get :new, nickname: 'sameer'
+        get :new, nickname: 'sameer', format: :js
         response.should render_template 'new'
       end
     end
 
     context "logged in as normal user" do
+
       before :each do
         sign_in peter
-        get :new, nickname: peter.nickname
+        get :new, nickname: peter.nickname, format: :js
       end
 
       it "can not access the page" do
-        response.should_not render_template 'new'
+        response.status.should == 401
       end
-
-      it "redirects to the root page" do
-        response.should redirect_to root_path
-      end
-
     end
   end
 
@@ -101,15 +102,15 @@ describe BonusesController do
 
       before :each do
         sign_in sameer
+        post :create, nickname: peter.nickname, bonus: attributes_for(:bonus, amount: 1000)
+      end
+
+      it 'redirects to the bonuses page' do
+        response.should redirect_to '/peter/bonuses'
       end
 
       it "creates a new bonus for the employee" do
-        post :create, nickname: peter.nickname, bonus: attributes_for(:bonus, amount: 1000)
-        assigns[:bonus].employee.id.should == peter.id
-      end
-
-      it "saves the bonus in database" do
-        expect { post :create, nickname: peter.nickname, bonus: attributes_for(:bonus, amount: 1000) }.to change{ peter.bonuses.count}.by(1)
+        peter.reload.should have(1).bonuses
       end
 
     end
@@ -145,7 +146,7 @@ describe BonusesController do
       end
 
       it "assigns the determined employee's bonus" do
-        assigns[:bonus].employee.should == peter
+        assigns[:bonus].should == peter_bonus
       end
     end
 

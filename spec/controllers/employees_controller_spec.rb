@@ -3,6 +3,10 @@ require 'spec_helper'
 describe EmployeesController do
   helper_objects
 
+  before :each do
+    Employee.delete_all
+  end
+
   describe "GET index" do
     before :each do
       [sameer, peter, allen, andy].each(&:save)
