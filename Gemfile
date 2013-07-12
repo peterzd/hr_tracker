@@ -25,7 +25,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'faker'
   gem 'capybara'
-  gem 'autotest-rails'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'launchy'
