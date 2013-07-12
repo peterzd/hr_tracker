@@ -9,8 +9,14 @@ class Employee < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :birthdate, :current_employee, :degree, :is_admin, :is_system_admin, :name, :nickname, :originate_end_date, :originate_start_date, :university, :years_prior_exp
 
+	validates :nickname, uniqueness: true, presence: true
+
   has_many :contracts, dependent: :nullify
   has_many :bonuses # , class_name: 'Bonus'
+
+	has_many :created_notes, class_name: 'Note', foreign_key: 'creator_id'
+	has_many :describing_notes, class_name: 'Note', foreign_key: 'employee_id'
+
 
   default_scope order :id
   scope :current_employees, where(current_employee: true)
@@ -45,5 +51,9 @@ class Employee < ActiveRecord::Base
   def to_s
     nickname
   end
+
+	def to_param
+		nickname
+	end
 end
 

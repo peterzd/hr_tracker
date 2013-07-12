@@ -3,6 +3,26 @@ require 'spec_helper'
 describe Employee do
   helper_objects
 
+	describe "associations" do
+		describe 'describing_notes' do
+			before :each do
+				@note = create(:note, creator: sameer, employee: peter)
+			end
+
+			it "works" do
+				peter.should have(1).describing_notes
+				peter.describing_notes.first.should eq @note
+			end
+		end
+
+		describe "created_notes" do
+			it "works" do
+				sameer.should have(1).created_notes
+				sameer.created_notes.first.should eq @note
+			end
+		end
+	end
+
   it 'sameer is the system_admin' do
     sameer.is_system_admin.should be_true
   end
@@ -42,6 +62,6 @@ describe Employee do
 			peter_contract_2 = create(:contract, employee: peter, end_date: 10.days.from_now, draft: true)
 			expect(Employee.high_priority[peter]).to eq 20
 		end
-		
+
 	end
 end

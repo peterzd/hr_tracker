@@ -152,7 +152,20 @@ feature "Dashboard" do
 		within('#high') do
 			find('div.days').should have_content '21 days'
 		end
-		
+	end
+
+	scenario "show notes for employee", js: true do
+		within("#high") { find('button.dropdown-toggle').click }
+		click_link 'Notes'
+
+		page.should have_css('div#notes-modal')
+
+		page.should have_css('#notes-panel')
+		within("#notes-panel") do
+			find("h2", text: "Notes For peter")
+		end
+
+
 
 	end
 end
