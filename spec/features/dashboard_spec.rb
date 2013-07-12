@@ -155,14 +155,27 @@ feature "Dashboard" do
 	end
 
 	scenario "show notes for employee", js: true do
+    create(:note, title: 'first note', employee: peter, content: 'test', creator: sameer)
+    create(:note, title: 'second note', employee: peter, content: 'test_2', creator: sameer)
+
 		within("#high") { find('button.dropdown-toggle').click }
-		click_link 'Notes'
+    click_link 'Notes'
 
 		page.should have_css('div#notes-modal')
 
 		page.should have_css('#notes-panel')
-		within("#notes-panel") do
-			find("h2", text: "Notes For peter")
+		within('#notes-panel') do
+			find('h2', text: 'Notes For peter')
+      find('table.table').all('tr').count.should == 3
+
+      click_on 'Create New Note'
+
+      page.should have_css('#new-note-modal')
+
+      #within('#new-note-modal') do
+      #  find('form#new_note')
+      #  find('save note').click
+      #end
 		end
 
 

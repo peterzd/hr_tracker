@@ -1,5 +1,5 @@
 :plain
-  $("notes-modal .modal-body").append("#{j(render partial: 'notes', locals: { employee: @employee } )}")
+  $("#notes-modal .modal-body").append("#{j(render partial: 'notes', locals: { employee: @employee } )}")
   $("#notes-modal").removeClass('hideModal').addClass('showModal')
 
 

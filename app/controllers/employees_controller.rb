@@ -32,7 +32,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html # new.js.haml.erb
       format.json { render json: @employee }
     end
   end

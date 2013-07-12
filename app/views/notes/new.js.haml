@@ -1,0 +1,3 @@
+:plain
+  $("#new-note-modal .modal-body").append("#{j(render partial: 'form', locals: { employee: @employee } )}")
+  $("#new-note-modal").removeClass('hideModal').addClass('showModal')
