@@ -14,4 +14,4 @@
         %td= note.created_at
         %td= note.creator.nickname
 
-  %li= link_to "Create New Note", new_employee_note_path, role: 'button', class: 'btn', remote: true
+  = link_to "New Note", new_employee_note_path, role: 'button', class: 'btn', remote: true

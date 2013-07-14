@@ -102,7 +102,7 @@ feature "Dashboard" do
 
 		# dismiss the modal
 		click_link('Close')
-		page.find('table.table-striped').should_not be_visible
+		page.should have_selector("#bonuses-modal", visible: false)
 	end
 
 	context "navigating on the top-right corner", js: true do
@@ -168,16 +168,13 @@ feature "Dashboard" do
 			find('h2', text: 'Notes For peter')
       find('table.table').all('tr').count.should == 3
 
-      click_on 'Create New Note'
-
-      page.should have_css('#new-note-modal')
-
-      #within('#new-note-modal') do
-      #  find('form#new_note')
-      #  find('save note').click
-      #end
+      click_on 'New Note'
 		end
 
+		within('#notes-modal .modal-body') do
+			page.should have_content "New Note for peter"
+			page.should have_selector "#new-note-form"
+		end
 
 
 	end
