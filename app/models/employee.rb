@@ -38,7 +38,7 @@ class Employee < ActiveRecord::Base
     private
     def employees_with_expired
       expired_employees = {}
-      Employee.all.each do |e|
+      Employee.current_employees.all.each do |e|
         contract = e.contracts.where(draft: false).last
         expired_employees[e] = (contract.end_date - Date.today).to_i unless contract.nil?
       end

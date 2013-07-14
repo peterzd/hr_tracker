@@ -43,6 +43,11 @@ describe Employee do
 			peter_contract_2 = create(:contract, employee: peter, end_date: 10.days.from_now, draft: true)
 			Employee.send(:employees_with_expired)[peter].should == 20
 		end
+
+		it "does not include the former employees" do
+			andy_contract = create(:contract, employee: andy, end_date: 99.days.from_now)
+			Employee.send(:employees_with_expired).keys.should_not include andy
+		end
 	end
 
 	context "different priorities of employees" do
@@ -62,6 +67,5 @@ describe Employee do
 			peter_contract_2 = create(:contract, employee: peter, end_date: 10.days.from_now, draft: true)
 			expect(Employee.high_priority[peter]).to eq 20
 		end
-
 	end
 end
