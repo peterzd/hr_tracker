@@ -45,4 +45,24 @@ describe NotesController do
 			assigns[:note].creator_id.should eq sameer.id
 		end
 	end
+
+	describe "POST create" do
+		before :each do
+			Note.delete_all
+			Employee.delete_all
+			sign_in sameer
+		end
+
+		it "saves the new note to the employee" do
+			post :create, note: attributes_for(:note, title: 'note title for peter', content: 'note content for peter'), employee_id: peter.nickname, format: :js
+			peter.reload.should have(1).describing_notes
+		end
+
+		it "saves the new note binding to the creator" do
+			post :create, note: attributes_for(:note, title: 'note title for peter', content: 'note content for peter'), employee_id: peter.nickname, format: :js
+			sameer.reload.should have(1).created_notes
+
+		end
+	end
+
 end

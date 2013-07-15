@@ -183,10 +183,12 @@ feature "Dashboard" do
 				# verify DB about the count on note
 				Note.should have(3).instances
 
-				# verify the record
-				peter_note = Note.first
-				peter_note.employee_id.should eq peter.id
-				peter_note.creator_id.should eq sameer.id
+				# verify UI
+				# TODO : dismiss the modal
+				# show the alert
+
+
+
 			end
 		end
 	end

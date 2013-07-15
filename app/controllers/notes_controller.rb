@@ -5,8 +5,15 @@ class NotesController < ApplicationController
 	def index
 		@notes = @employee.describing_notes
 	end
-	
+
 	def new
 		@note = @employee.describing_notes.build(creator: current_employee)
 	end
+
+	def create
+		@note.update_attributes employee: @employee
+		@note.update_attributes creator: current_employee
+
+	end
+
 end
