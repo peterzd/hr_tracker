@@ -1,2 +1,17 @@
 #notes-panel
-  %h2= "Notes for #{employee.nickname}"
+  %h2= "Notes For #{employee.nickname}"
+  %table.table.table-hover.table-bordered.table-striped
+    %tr
+      %th Title
+      %th Content
+      %th Creat Date
+      %th Creator
+
+    - @notes.each do |note|
+      %tr
+        %td= note.title
+        %td= note.content
+        %td= note.created_at
+        %td= note.creator.nickname
+
+  = link_to "New Note", new_employee_note_path, role: 'button', class: 'btn', remote: true

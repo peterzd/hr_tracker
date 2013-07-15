@@ -9,7 +9,6 @@ class HomeController < ApplicationController
 
   def dashboard
     add_breadcrumb "home", :root_path
-    @employees = Employee.current_employees
     @high_employees = Employee.high_priority
     @medium_employees = Employee.medium_priority
     @low_employees = Employee.low_priority

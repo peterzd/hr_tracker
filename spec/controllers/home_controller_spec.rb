@@ -6,6 +6,7 @@ describe HomeController do
   describe "GET 'dashboard'" do
 		before :each do
 			Employee.delete_all
+			Contract.delete_all
 			sign_in sameer
 			peter_contract = create(:contract, employee: peter, end_date: 20.days.from_now)
 			sameer_contract = create(:contract, employee: sameer, end_date: 70.days.from_now)
@@ -24,6 +25,14 @@ describe HomeController do
 			assigns[:high_employees].keys.should include peter
 			assigns[:high_employees].values.should include 20
 			assigns[:high_employees].values.should_not include 35
+		end
+
+		it "does not show the former employees" do
+			andy_contract = create(:contract, employee: andy, end_date: 99.days.from_now)
+			get :dashboard
+			assigns[:high_employees].keys.should_not include andy
+			assigns[:medium_employees].keys.should_not include andy
+			assigns[:low_employees].keys.should_not include andy
 		end
 
   end

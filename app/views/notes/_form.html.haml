@@ -1,0 +1,12 @@
+= form_for [ @employee, @note ] do |f|
+  .control-group
+    = f.label :title, class: 'control-label'
+    .controls
+      = f.text_field :title
+  .control-group
+    = f.label :content, class: 'control-label'
+    .controls
+      = f.text_field :content
+  .control-group
+    .controls
+      = f.submit "Save", class: "btn"

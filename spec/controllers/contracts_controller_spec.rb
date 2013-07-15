@@ -45,7 +45,6 @@ describe ContractsController do
 				post :create, contract: attributes_for(:contract, employee_id: peter.id), commit: 'Save as Draft', from: 'dashboard', format: :js
 				peter.reload.should have(1).contracts
 				peter.contracts.first.should be_draft
-
 			end
 		end
 	end

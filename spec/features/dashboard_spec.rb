@@ -9,6 +9,7 @@ feature "Dashboard" do
 
   background do
     Employee.delete_all
+		Note.delete_all
     login_admin
     create(:contract, employee: peter, end_date: 21.days.from_now)
     create(:contract, employee: sameer, end_date: 80.days.from_now)
@@ -102,7 +103,7 @@ feature "Dashboard" do
 
 		# dismiss the modal
 		click_link('Close')
-		page.find('table.table-striped').should_not be_visible
+		page.should have_selector("#bonuses-modal", visible: false)
 	end
 
 	context "navigating on the top-right corner", js: true do
@@ -155,17 +156,38 @@ feature "Dashboard" do
 	end
 
 	scenario "show notes for employee", js: true do
+    create(:note, title: 'first note', employee: peter, content: 'test', creator: sameer)
+    create(:note, title: 'second note', employee: peter, content: 'test_2', creator: sameer)
+
 		within("#high") { find('button.dropdown-toggle').click }
-		click_link 'Notes'
+    click_link 'Notes'
 
 		page.should have_css('div#notes-modal')
 
 		page.should have_css('#notes-panel')
-		within("#notes-panel") do
-			find("h2", text: "Notes For peter")
+		within('#notes-panel') do
+			find('h2', text: 'Notes For peter')
+      find('table.table').all('tr').count.should == 3
+
+      click_on 'New Note'
 		end
 
+		within('#notes-modal .modal-body') do
+			page.should have_content "New Note for peter"
+			page.should have_selector "#new-note-form"
+			within("#new-note-form") do
+				fill_in "note[title]", with: 'note 1 for peter'
+				fill_in "note[content]", with: 'content 1 for peter'
+				click_on 'Save'
 
+				# verify DB about the count on note
+				Note.should have(3).instances
 
+				# verify the record
+				peter_note = Note.first
+				peter_note.employee_id.should eq peter.id
+				peter_note.creator_id.should eq sameer.id
+			end
+		end
 	end
 end
