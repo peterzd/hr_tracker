@@ -1,0 +1,5 @@
+:plain
+  $("#notes-modal").removeClass('showModal').addClass('hideModal')
+  $("#message").append("#{j(flash[:success])}")
+  $("#message").html("#{j(render partial: 'shared/message')}");
+  setTimeout(callback, 4000);

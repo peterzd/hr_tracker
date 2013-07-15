@@ -179,17 +179,18 @@ feature "Dashboard" do
 				fill_in "note[title]", with: 'note 1 for peter'
 				fill_in "note[content]", with: 'content 1 for peter'
 				click_on 'Save'
-
-				# verify DB about the count on note
-				Note.should have(3).instances
-
-				# verify UI
-				# TODO : dismiss the modal
-				# show the alert
-
-
-
 			end
 		end
+
+		# verify UI
+		# TODO : dismiss the modal
+		# show the alert
+
+		page.should_not have_css("#notes-modal")
+		page.should have_content("Success!Successfully create new note")
+
+		# verify DB about the count on note
+		Note.should have(3).instances
+
 	end
 end

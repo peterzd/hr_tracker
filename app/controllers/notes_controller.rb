@@ -14,6 +14,7 @@ class NotesController < ApplicationController
 		@note.update_attributes employee: @employee
 		@note.update_attributes creator: current_employee
 
+		flash[:success] = 'Successfully create new note'
 	end
 
 end
