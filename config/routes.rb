@@ -5,9 +5,9 @@ HrTracker::Application.routes.draw do
       get 'discussions' => 'discussions#new_or_edit'
       match 'discussions' => 'discussions#create_or_update', via: [:post, :put]
 
-      collection do
-        get 'ajax_new'
-      end
+      #collection do
+      #  get 'ajax_new'
+      #end
     end
 
     collection do
@@ -40,5 +40,6 @@ HrTracker::Application.routes.draw do
 
   end
 
-  get '/:nickname/contracts', to: 'Contracts#emp_contracts', nickname: /[a-z]+/, as: :emp_contracts
+  get '/:nickname/contracts', to: 'contracts#emp_contracts', nickname: /[a-z]+/, as: :emp_contracts
+  get '/:nickname/salary_activity', to: 'salary_activities#ajax_new', nickname: /[a-z]+/, as: :ajax_new
 end

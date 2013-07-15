@@ -192,5 +192,26 @@ feature "Dashboard" do
 		# verify DB about the count on note
 		Note.should have(3).instances
 
-	end
+  end
+
+  scenario "pop-up box for creating salary activity", js:true do
+    contract1 = create(:contract, employee: peter, end_date: 21.days.from_now)
+    contract2 = create(:contract, employee: sameer, end_date: 80.days.from_now)
+    create(:salary_activity, previous_salary: '2000', current_salary: '3000', contract: contract1)
+    create(:salary_activity, previous_salary: '3000', current_salary: '5000', contract: contract2)
+
+    within('#high') do
+      find('button.dropdown-toggle').click
+    end
+    click_link('Add Salary Activity')
+    page.should have_css('#salary-modal #new-salary-form')
+
+=begin
+    within('#new-salary-form') do
+      find('h2', text: 'New Salary Activity')
+      find('')
+    end
+=end
+
+  end
 end

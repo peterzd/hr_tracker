@@ -1,6 +1,7 @@
 class SalaryActivitiesController < ApplicationController
   load_and_authorize_resource :contract, except: [:create, :update]
   load_and_authorize_resource :salary_activity, through: :contract
+
   # authorize_resource
   # load_resource :contract, except: [:create, :update]
 
@@ -19,8 +20,9 @@ class SalaryActivitiesController < ApplicationController
   end
 
   def ajax_new
-    @contract = Contract.where(id: params[:contract_id]).first
-    @salary_activity = @contract.salary_activities.build()
+    employee_id = Employee.where(nickname: params[:employee]).first.id
+    @contract = Contract.where(employee: employee_id).order('start_data DESC').first
+    @salary_activity = contract.salary_activities.build()
     @discussion = Discussion.new
   end
 

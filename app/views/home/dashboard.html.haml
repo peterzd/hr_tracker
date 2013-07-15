@@ -15,7 +15,10 @@
     %div
       = link_to "X", "#close", class: 'closeModal', title: "Close"
       .modal-body
-
+  #salary-modal.modalDialog.hideModal
+    %div
+      = link_to "X", "#close", class: 'closeModal', title: "Close"
+      .modal-body
 #table-head
   %h1 Dashboard
   = form_tag "#", method: 'get', class: 'navbar-search pull-right' do

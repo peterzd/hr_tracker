@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-  load_and_authorize_resource find_by: :nickname
+  load_and_authorize_resource #find_by: :id
 
   add_breadcrumb "home", :home_index_path
 

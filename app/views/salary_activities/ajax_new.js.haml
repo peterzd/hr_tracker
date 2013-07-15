@@ -1,5 +1,12 @@
 :plain
-  $(".table").after("#{j(render partial: 'new')}");
-  active_datepicker();
-  same_date();
+   $("#salary-modal .modal-body").empty()
+   $("#salary-modal .modal-body").append("#{j(render partial: 'form')}")
+   $("#salary-modal").removeClass('hideModal').addClass('showModal')
+   $(".closeModal").on("click", function(){
+     $(".modalDialog").removeClass('showModal').addClass('hideModal')
+   });
+
+
+ // active_datepicker();
+ // same_date();
 
