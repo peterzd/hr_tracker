@@ -31,9 +31,8 @@ describe "Contracts" do
 
     context "Destroy" do
       it "removes the contract", js: true do
-        page.execute_script 'window.confirm = function() { return true; }'
         page.find_link('Destroy').click
-        # page.driver.browser.switch_to.alert.accept
+        page.driver.browser.switch_to.alert.accept
         page.should have_content 'Listing contracts'
       end
     end
