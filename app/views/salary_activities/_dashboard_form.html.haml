@@ -1,0 +1,43 @@
+= form_for @salary_activity, url: dashboard_ajax_create_path, html: { class: 'form-horizontal' } do |f|
+  - if @salary_activity.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@salary_activity.errors.count, "error")} prohibited this salary_activity from being saved:"
+      %ul
+        - @salary_activity.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    = f.label :previous_salary, class: 'control-label'
+    .controls
+      = f.text_field :previous_salary, value: @salary_activity.previous_salary, readonly: true
+  .control-group
+    = f.label :current_salary, class: 'control-label'
+    .controls
+      = f.text_field :current_salary
+  .control-group
+    = f.label :contract, class: 'control-label'
+    .controls
+      = f.text_field :contract
+  .control-group
+    = f.label :discussion_date, class: 'control-label'
+    .controls
+      #datepicker_discussion_date.input-append.date{ "data-date-format" => "yyyy-mm-dd" }
+        = f.text_field :discussion_date, { "data-format" => "yyyy-MM-dd", readonly: true }
+        %span.add-on
+          %i{ class: "icon-remove" }
+        %span.add-on
+          %i{ class: "icon-time" }
+  .control-group
+    = f.label :effective_date, class: 'control-label'
+    .controls
+      #datepicker_discussion_date.input-append.date{ "data-date-format" => "yyyy-mm-dd" }
+        = f.text_field :effective_date, { "data-format" => "yyyy-MM-dd", readonly: true }
+        %span.add-on
+          %i{ class: "icon-remove" }
+        %span.add-on
+          %i{ class: "icon-time" }
+  .control-group
+    = render 'discussion_form'
+  .control-group
+    .controls
+      = f.submit 'Save', class: 'btn'

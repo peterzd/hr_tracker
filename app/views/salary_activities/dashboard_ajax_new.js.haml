@@ -1,0 +1,7 @@
+:plain
+  $("#salary-modal .modal-body").empty();
+  $("#salary-modal .modal-body").append("#{j(render partial: 'dashboard_new')}");
+  $("#salary-modal").removeClass('hideModal').addClass('showModal')
+  $(".closeModal").on("click", function(){
+    $(".modalDialog").removeClass('showModal').addClass('hideModal')
+  });
