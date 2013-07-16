@@ -27,4 +27,5 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'selenium-webdriver'
   gem 'launchy'
+  gem 'spring'
 end
