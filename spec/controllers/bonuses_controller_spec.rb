@@ -16,11 +16,6 @@ end
 describe BonusesController do
   helper_objects
 
-  before :each do
-    Employee.delete_all
-    Bonus.delete_all
-  end
-
   describe "GET 'index'" do
 
     context "logged in as system admin" do
