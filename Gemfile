@@ -22,6 +22,9 @@ group :development, :test do
   gem 'faker'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'guard'
+  gem 'guard-livereload'
+  gem 'guard-rspec'
   gem 'selenium-webdriver'
   gem 'launchy'
 end
