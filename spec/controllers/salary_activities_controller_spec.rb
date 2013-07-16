@@ -7,6 +7,7 @@ describe SalaryActivitiesController do
 		context "logged in as admin" do
 			before :each do
 				sign_in sameer
+				@peter_contract = create(:contract, start_date: 1.years.ago, end_date: 2.years.from_now, salary: 5000, employee: peter)
 				get :dashboard_ajax_new, nickname: peter.nickname, format: :js
 			end
 
@@ -14,17 +15,13 @@ describe SalaryActivitiesController do
 				response.should be_success
 			end
 
-			it "gets the employee" do
-				get :dashboard_ajax_new, nickname: peter.nickname, format: :js
-				assigns[:employee].should eq peter
-			end
-
 			it "assigns a new salary activity" do
-				get :dashboard_ajax_new, nickname: peter.nickname, format: :js
 				assigns[:salary_activity].should be_new_record
 			end
 
-			it "attaches the new salary activity to the lastest contract"
+			it "attaches the new salary activity to the lastest contract" do
+				assigns[:salary_activity].contract.should eq @peter_contract
+			end
 
 		end
 

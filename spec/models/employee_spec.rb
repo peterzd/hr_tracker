@@ -4,18 +4,18 @@ describe Employee do
   helper_objects
 
 	describe "associations" do
-		describe 'describing_notes' do
-			before :each do
-				@note = create(:note, creator: sameer, employee: peter)
-			end
+		before :each do
+			@note = create(:note, creator: sameer, employee: peter)
+		end
 
+		context 'describing_notes' do
 			it "works" do
 				peter.should have(1).describing_notes
 				peter.describing_notes.first.should eq @note
 			end
 		end
 
-		describe "created_notes" do
+		context "created_notes" do
 			it "works" do
 				sameer.should have(1).created_notes
 				sameer.created_notes.first.should eq @note
@@ -68,4 +68,13 @@ describe Employee do
 			expect(Employee.high_priority[peter]).to eq 20
 		end
 	end
+
+	describe ".latest_contract" do
+		it "gets the latest contract of the employee" do
+			peter_contract_1 = create(:contract, start_date: 2.years.ago, end_date: 1.years.ago, employee: peter)
+			peter_contract_2 = create(:contract, start_date: 1.years.ago, end_date: 1.years.from_now, employee: peter)
+			peter.latest_contract.should eq peter_contract_2
+		end
+	end
+
 end

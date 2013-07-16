@@ -47,6 +47,9 @@ class Employee < ActiveRecord::Base
     end
   end
 
+	def latest_contract
+		self.contracts.order("start_date desc").first
+	end
 
   def to_s
     nickname

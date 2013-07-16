@@ -24,8 +24,9 @@ class SalaryActivitiesController < ApplicationController
   end
 
 	def dashboard_ajax_new
-		@employee = Employee.where(nickname: params[:nickname]).first
-		@salary_activity = SalaryActivity.new
+		employee = Employee.where(nickname: params[:nickname]).first
+		contract = employee.latest_contract
+		@salary_activity = contract.salary_activities.build
 	end
 
   def new
