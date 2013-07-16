@@ -1,0 +1,12 @@
+machine:
+  ruby:
+    version: 2.0.0-p247
+
+# deployment:
+#   production:
+#     branch: master
+#     commands:
+#       - heroku pgbackups:capture --expire --app snippetize
+#       - git push git@heroku.com:snippetize.git $CIRCLE_SHA1:master
+#       - script/heroku_run.sh 'rake db:migrate' --app snippetize
+#       - heroku restart --app snippetize
