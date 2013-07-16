@@ -15,7 +15,6 @@ class Ability
       can :read, Bonus do |bonus|
         bonus.employee_id == employee.id
       end
-
       can :read, SalaryActivity do |managed_activity|
         managed_activity.employee.id == employee.id
       end

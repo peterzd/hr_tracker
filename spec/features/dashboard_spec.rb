@@ -194,7 +194,7 @@ feature "Dashboard" do
 
   end
 
-  scenario "pop-up box for creating salary activity", js:true do
+  scenario "pop-up box for creating salary activity", js: true do
     contract1 = create(:contract, employee: peter, end_date: 21.days.from_now)
     contract2 = create(:contract, employee: sameer, end_date: 80.days.from_now)
     create(:salary_activity, previous_salary: '2000', current_salary: '3000', contract: contract1)

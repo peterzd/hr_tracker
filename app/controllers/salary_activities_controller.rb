@@ -1,9 +1,7 @@
 class SalaryActivitiesController < ApplicationController
-  load_and_authorize_resource :contract, except: [:create, :update]
-  load_and_authorize_resource :salary_activity, through: :contract
-
-  # authorize_resource
-  # load_resource :contract, except: [:create, :update]
+  load_and_authorize_resource :contract, except: [:create, :update, :dashboard_ajax_new]
+  load_and_authorize_resource :salary_activity, through: :contract, except: [:dashboard_ajax_new]
+  load_and_authorize_resource :salary_activity, only: [:dashboard_ajax_new]
 
   add_breadcrumb "home", :home_index_path
 
@@ -14,7 +12,6 @@ class SalaryActivitiesController < ApplicationController
   end
 
   def show
-    @salary_activity = SalaryActivity.find(params[:id])
     add_breadcrumb "salary activities for #{@contract.id}", contract_salary_activities_path(@contract)
     add_breadcrumb "#{@salary_activity.id}"
   end
@@ -25,6 +22,11 @@ class SalaryActivitiesController < ApplicationController
     @salary_activity = contract.salary_activities.build()
     @discussion = Discussion.new
   end
+
+	def dashboard_ajax_new
+		@employee = Employee.where(nickname: params[:nickname]).first
+		@salary_activity = SalaryActivity.new
+	end
 
   def new
     @contract = Contract.where(id: params[:contract_id]).first

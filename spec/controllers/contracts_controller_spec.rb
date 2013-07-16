@@ -11,7 +11,6 @@ describe ContractsController do
         [contract_sameer, contract_peter, contract_peter_2, contract_allen, contract_andy].each(&:save)
         sign_in sameer
       end
-
       it "assigns all the contracts" do
         get :index
         assigns[:contracts].count.should == 5

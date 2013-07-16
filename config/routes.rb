@@ -41,5 +41,5 @@ HrTracker::Application.routes.draw do
   end
 
   get '/:nickname/contracts', to: 'contracts#emp_contracts', nickname: /[a-z]+/, as: :emp_contracts
-  get '/:nickname/salary_activity', to: 'salary_activities#ajax_new', nickname: /[a-z]+/, as: :ajax_new
+  get '/:nickname/dashboard_salary_activity', to: 'salary_activities#dashboard_ajax_new', nickname: /[a-z]+/, as: :dashboard_ajax_new
 end
